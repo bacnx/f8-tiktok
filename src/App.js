@@ -1,9 +1,7 @@
-import Button from './components/Button';
-
 function App() {
   return (
-    <div>
-      <Button />
+    <div className="App">
+      <h1>React App</h1>
     </div>
   );
 }
