@@ -1,7 +1,7 @@
-import alertFunc from "~/alertFunc"
+import alertFunc from '~/alertFunc';
 
 function Button() {
-  return <Button onClick={alertFunc}>Click me!</Button>
+  return <Button onClick={alertFunc}>Click me!</Button>;
 }
 
-export default Button
+export default Button;

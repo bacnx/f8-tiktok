@@ -1,5 +1,5 @@
 function alertFunc() {
-  alert('Say hi!')
+  alert('Say hi!');
 }
 
-export default alertFunc
+export default alertFunc;
