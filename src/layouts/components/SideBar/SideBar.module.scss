@@ -1,0 +1,8 @@
+:root {
+  --sidebar-width: 348px;
+}
+
+.wrapper {
+  height: 1000px;
+  width: var(--sidebar-width);
+}
