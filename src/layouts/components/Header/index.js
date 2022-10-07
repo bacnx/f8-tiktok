@@ -15,7 +15,7 @@ function Header() {
   const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
-    setSearchResult([1, 2, 3]);
+    setSearchResult([]);
   }, []);
 
   return (
