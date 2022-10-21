@@ -3,9 +3,9 @@ import styles from './Popper.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Box({ children, ...props }) {
+function Box({ children, className, ...props }) {
   return (
-    <div className={cx('box')} {...props}>
+    <div className={cx('box', className)} {...props}>
       {children}
     </div>
   );
