@@ -114,3 +114,21 @@
   font-size: 2rem;
   cursor: pointer;
 }
+
+.action-icon {
+  font-size: 2rem;
+  padding: 4px 4px 0;
+  background-color: transparent;
+  color: rgba(22, 24, 35, 1);
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.action-avatar {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: 24px;
+  cursor: pointer;
+}

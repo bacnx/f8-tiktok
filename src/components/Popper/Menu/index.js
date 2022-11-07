@@ -1,4 +1,4 @@
-import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { useState } from 'react';
 
@@ -36,8 +36,10 @@ function Menu({ children, items = [], onChange = defaultFn }) {
   return (
     <Tippy
       interactive
-      delay={[0, 700]}
+      delay={[0, 500]}
+      offset={[16, 4]}
       placement="bottom-end"
+      onHide={() => setHistory((prev) => [prev[0]])}
       render={(attrs) => (
         <PopperBox className={cx('menu-list')} tabIndex="-1" {...attrs}>
           {history.length > 1 && (
