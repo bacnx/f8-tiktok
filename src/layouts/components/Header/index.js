@@ -2,19 +2,12 @@ import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faArrowRightFromBracket,
-  faCameraRetro,
   faCircleNotch,
-  faEarthAsia,
   faEllipsisVertical,
-  faGear,
-  faKeyboard,
   faMagnifyingGlass,
   faPlus,
-  faQuestion,
   faXmarkCircle,
 } from '@fortawesome/free-solid-svg-icons';
-import { faMessage, faPaperPlane, faUser } from '@fortawesome/free-regular-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
@@ -25,13 +18,24 @@ import { Box as PopperBox } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
-import { faBitcoin } from '@fortawesome/free-brands-svg-icons';
+import {
+  MessageIcon,
+  InboxIcon,
+  LanguageIcon,
+  KeyboardIcon,
+  UserIcon,
+  LiveStudioIcon,
+  QuestionIcon,
+  CoinIcon,
+  SettingIcon,
+  LogOutIcon,
+} from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
 const MENU_ITEMS = [
   {
-    icon: <FontAwesomeIcon icon={faEarthAsia} />,
+    icon: <LanguageIcon width="2rem" height="2rem" />,
     title: 'English',
     children: {
       title: 'Language',
@@ -50,12 +54,12 @@ const MENU_ITEMS = [
     },
   },
   {
-    icon: <FontAwesomeIcon icon={faQuestion} />,
+    icon: <QuestionIcon width="2rem" height="2rem" />,
     title: 'Feedback and help',
     to: 'feedback',
   },
   {
-    icon: <FontAwesomeIcon icon={faKeyboard} />,
+    icon: <KeyboardIcon width="2rem" height="2rem" />,
     title: 'Keyboard shortcuts',
   },
 ];
@@ -66,27 +70,27 @@ function Header() {
 
   const userMenu = [
     {
-      icon: <FontAwesomeIcon icon={faUser} />,
+      icon: <UserIcon width="2rem" height="2rem" />,
       title: 'View profile',
       to: '@pttt1001',
     },
     {
-      icon: <FontAwesomeIcon icon={faBitcoin} />,
+      icon: <CoinIcon width="2rem" height="2rem" />,
       title: 'Get Coins',
       to: 'coin',
     },
     {
-      icon: <FontAwesomeIcon icon={faCameraRetro} />,
+      icon: <LiveStudioIcon width="2rem" height="2rem" />,
       title: 'LIVE Studio',
     },
     {
-      icon: <FontAwesomeIcon icon={faGear} />,
+      icon: <SettingIcon width="2rem" height="2rem" />,
       title: 'Settings',
       to: 'setting',
     },
     ...MENU_ITEMS,
     {
-      icon: <FontAwesomeIcon icon={faArrowRightFromBracket} />,
+      icon: <LogOutIcon width="2rem" height="2rem" />,
       title: 'Log out',
       separate: true,
     },
@@ -154,12 +158,12 @@ function Header() {
             <>
               <Tippy content="Messages">
                 <button className={cx('action-icon')}>
-                  <FontAwesomeIcon icon={faPaperPlane} />
+                  <MessageIcon />
                 </button>
               </Tippy>
               <Tippy content="Inbox">
                 <button className={cx('action-icon')}>
-                  <FontAwesomeIcon icon={faMessage} />
+                  <InboxIcon />
                 </button>
               </Tippy>
             </>
