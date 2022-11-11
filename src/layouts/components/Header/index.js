@@ -30,6 +30,7 @@ import {
   SettingIcon,
   LogOutIcon,
 } from '~/components/Icons';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -175,10 +176,11 @@ function Header() {
 
           <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
             {currentUser ? (
-              <img
+              <Image
                 className={cx('action-avatar')}
                 src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/6ae2b0d5129c22fc8d7799d6951bbf29~c5_100x100.jpeg?x-expires=1668009600&x-signature=p8qAAyME%2FRu1blVUvtZWhl1IaL8%3D"
                 alt="Nguyen Van A"
+                fallback={images.defaultAvatar}
               />
             ) : (
               <button className={cx('menu-icon')}>
