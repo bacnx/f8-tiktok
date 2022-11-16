@@ -48,7 +48,7 @@ const MENU_ITEMS = [
   {
     icon: <QuestionIcon width="2rem" height="2rem" />,
     title: 'Feedback and help',
-    to: 'feedback',
+    to: '/feedback',
   },
   {
     icon: <KeyboardIcon width="2rem" height="2rem" />,
@@ -63,12 +63,12 @@ function Header() {
     {
       icon: <UserIcon width="2rem" height="2rem" />,
       title: 'View profile',
-      to: '@pttt1001',
+      to: '/@pttt1001',
     },
     {
       icon: <CoinIcon width="2rem" height="2rem" />,
       title: 'Get Coins',
-      to: 'coin',
+      to: '/coin',
     },
     {
       icon: <LiveStudioIcon width="2rem" height="2rem" />,
@@ -77,7 +77,7 @@ function Header() {
     {
       icon: <SettingIcon width="2rem" height="2rem" />,
       title: 'Settings',
-      to: 'setting',
+      to: '/setting',
     },
     ...MENU_ITEMS,
     {

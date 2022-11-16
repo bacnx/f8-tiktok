@@ -14,12 +14,27 @@ function Search() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const inputRef = useRef();
 
   useEffect(() => {
-    setSearchResult([1, 2]);
-  }, []);
+    if (!searchValue.trim()) {
+      handleClear();
+      return;
+    }
+    setLoading(true);
+
+    fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+      .then((res) => res.json())
+      .then((res) => {
+        setSearchResult(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, [searchValue]);
 
   const handleClear = () => {
     setSearchValue('');
@@ -35,10 +50,9 @@ function Search() {
         <PopperBox tabIndex="-1" {...attrs}>
           <div className={cx('search-result')}>
             <h4 className={cx('search-title')}>Accounts</h4>
-
-            <AccountItem />
-            <AccountItem />
-            <AccountItem />
+            {searchResult.map((result) => (
+              <AccountItem key={result.id} data={result} />
+            ))}
           </div>
         </PopperBox>
       )}
@@ -55,15 +69,13 @@ function Search() {
           onFocus={() => setShowResult(true)}
         />
 
-        {/* <FontAwesomeIcon className={cx('icon')} icon={faCircleNotch} /> */}
-        {searchValue && (
+        {loading && <FontAwesomeIcon className={cx('icon', 'loading')} icon={faCircleNotch} />}
+        {searchValue && !loading && (
           <button onClick={handleClear}>
             <FontAwesomeIcon className={cx('icon')} icon={faXmarkCircle} />
           </button>
         )}
-
         <span className={cx('line')}></span>
-
         <button className={cx('search-btn')}>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
