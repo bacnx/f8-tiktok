@@ -45,12 +45,25 @@
 }
 
 .action-icon {
+  position: relative;
   font-size: 2rem;
   padding: 4px 4px 0;
   background-color: transparent;
   color: rgba(22, 24, 35, 1);
   margin-left: 16px;
   cursor: pointer;
+}
+
+.icon-couter {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  border-radius: 50px;
+  padding: 2px 4px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: var(--primary);
+  color: var(--white);
 }
 
 .action-avatar {

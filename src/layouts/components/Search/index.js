@@ -29,7 +29,7 @@ function Search() {
 
   useEffect(() => {
     if (!debounce.trim()) {
-      handleClear();
+      setSearchResult([]);
       return;
     }
 
