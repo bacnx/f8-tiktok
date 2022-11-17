@@ -23,7 +23,7 @@ import {
 } from '~/components/Icons';
 import Image from '~/components/Image';
 import Search from '../Search';
-import routesConfig from '~/configs/routes';
+import { routesConfig } from '~/configs';
 
 const cx = classNames.bind(styles);
 

@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 import { Box as PopperBox } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import { useDebounce } from '~/hooks';
-import { searchService } from '~/apiServices';
+import { searchService } from '~/services';
 import styles from './Search.module.scss';
 
 const cx = classNames.bind(styles);

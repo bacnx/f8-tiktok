@@ -7,7 +7,7 @@ import Search from '~/pages/Search';
 // Layouts
 import { HeaderOnly } from '~/layouts';
 
-import routesConfig from '~/configs/routes';
+import { routesConfig } from '~/configs';
 
 const publicRoutes = [
   { path: routesConfig.home, component: Home },
