@@ -22,6 +22,12 @@ function Search() {
   const debounce = useDebounce(searchValue, 500);
 
   useEffect(() => {
+    if (!searchValue.trim()) {
+      setSearchResult([]);
+    }
+  }, [searchValue]);
+
+  useEffect(() => {
     if (!debounce.trim()) {
       handleClear();
       return;
@@ -45,45 +51,57 @@ function Search() {
     inputRef.current.focus();
   };
 
-  return (
-    <HeadlessTippy
-      interactive={true}
-      visible={showResult && searchResult.length > 0}
-      render={(attrs) => (
-        <PopperBox tabIndex="-1" {...attrs}>
-          <div className={cx('search-result')}>
-            <h4 className={cx('search-title')}>Accounts</h4>
-            {searchResult.map((result) => (
-              <AccountItem key={result.id} data={result} />
-            ))}
-          </div>
-        </PopperBox>
-      )}
-      onClickOutside={() => setShowResult(false)}
-    >
-      <div className={cx('search')}>
-        <input
-          ref={inputRef}
-          type="text"
-          placeholder="Search accounts and videos"
-          spellCheck={false}
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          onFocus={() => setShowResult(true)}
-        />
+  const handleChange = (e) => {
+    const searchValue = e.target.value;
+    if (!searchValue.startsWith(' ')) {
+      setSearchValue(searchValue);
+    }
+  };
 
-        {loading && <FontAwesomeIcon className={cx('icon', 'loading')} icon={faCircleNotch} />}
-        {searchValue && !loading && (
-          <button onClick={handleClear}>
-            <FontAwesomeIcon className={cx('icon')} icon={faXmarkCircle} />
-          </button>
+  return (
+    // Using a wrapper <div> or <span> tag around the reference element solves
+    // this by creating a new parentNode context.
+    <div>
+      <HeadlessTippy
+        interactive={true}
+        visible={showResult && searchResult.length > 0}
+        render={(attrs) => (
+          // Problem: not show scrollbar in result box
+          <PopperBox tabIndex="-1" {...attrs}>
+            <div className={cx('search-result')}>
+              <h4 className={cx('search-title')}>Accounts</h4>
+              {searchResult.map((result) => (
+                <AccountItem key={result.id} data={result} />
+              ))}
+            </div>
+          </PopperBox>
         )}
-        <span className={cx('line')}></span>
-        <button className={cx('search-btn')}>
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </button>
-      </div>
-    </HeadlessTippy>
+        onClickOutside={() => setShowResult(false)}
+      >
+        <div className={cx('search')}>
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Search accounts and videos"
+            spellCheck={false}
+            value={searchValue}
+            onChange={handleChange}
+            onFocus={() => setShowResult(true)}
+          />
+
+          {loading && <FontAwesomeIcon className={cx('icon', 'loading')} icon={faCircleNotch} />}
+          {searchValue && !loading && (
+            <button onClick={handleClear}>
+              <FontAwesomeIcon className={cx('icon')} icon={faXmarkCircle} />
+            </button>
+          )}
+          <span className={cx('line')}></span>
+          <button className={cx('search-btn')}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
+        </div>
+      </HeadlessTippy>
+    </div>
   );
 }
 

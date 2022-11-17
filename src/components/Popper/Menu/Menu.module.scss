@@ -12,6 +12,10 @@
   }
 }
 
+.menu-body {
+  overflow-y: overlay;
+}
+
 .menu-item {
   width: 100%;
   justify-content: flex-start;
@@ -26,6 +30,7 @@
 }
 
 .header {
+  flex-shrink: 0;
   position: relative;
   height: 50px;
   margin-top: -8px;
