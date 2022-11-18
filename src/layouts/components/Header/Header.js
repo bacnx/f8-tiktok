@@ -60,7 +60,6 @@ const MENU_ITEMS = [
 
 function Header() {
   const currentUser = true;
-  const notificationCounter = 12;
 
   const userMenu = [
     {
@@ -125,7 +124,7 @@ function Header() {
               <Tippy content="Inbox">
                 <button className={cx('action-icon')}>
                   <InboxIcon />
-                  {notificationCounter && <span className={cx('icon-couter')}>{notificationCounter}</span>}
+                  <span className={cx('icon-couter')}>12</span>
                 </button>
               </Tippy>
             </>
