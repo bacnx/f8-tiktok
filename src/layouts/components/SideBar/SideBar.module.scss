@@ -1,9 +1,23 @@
 :root {
   --sidebar-width: 348px;
+  --padding-x: 8px;
 }
 
 .wrapper {
-  height: 1000px;
   width: var(--sidebar-width);
-  padding: 20px 8px 26px 8px;
+  height: calc(100vh - var(--default-layout-header-height));
+  overflow-y: overlay;
+  padding: 20px var(--padding-x) 26px var(--padding-x);
+}
+
+.menu {
+  padding-bottom: 8px;
+}
+
+.line {
+  display: block;
+  width: calc(100% - 2 * var(--padding-x));
+  height: 1px;
+  margin: 0 var(--padding-x);
+  background-color: rgba(22, 24, 35, 0.12);
 }
