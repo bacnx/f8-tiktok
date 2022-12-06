@@ -33,7 +33,7 @@ function SideBar() {
       <SuggestedAccounts label="Suggested accounts" />
 
       <span className={cx('line')}></span>
-      <SuggestedAccounts label="Following accounts" moreBtnLabel="See more" />
+      <SuggestedAccounts label="Following accounts" moreBtnLabel="See more" type="following" />
     </aside>
   );
 }

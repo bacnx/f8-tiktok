@@ -1,42 +1,47 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './SuggestedAccounts.module.scss';
 import { Box as PopperBox } from '~/components/Popper';
 import AccountPreview from './AccountPreview';
+import Avatar from '~/components/Avatar';
 
 const cx = classNames.bind(styles);
 
-function AccountItem() {
+function AccountItem({ data }) {
   const renderPreview = (attrs) => (
     <PopperBox tabIndex="-1" {...attrs}>
-      <AccountPreview />
+      <AccountPreview data={data} />
     </PopperBox>
   );
+
+  const full_name = data.first_name + data.last_name;
 
   return (
     // Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context.
     <div>
       <Tippy interactive placement="bottom" zIndex={8} offset={[-10, 0]} delay={[800, 0]} render={renderPreview}>
-        <div className={cx('account-item')}>
-          <img
-            src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/6ae2b0d5129c22fc8d7799d6951bbf29~c5_100x100.jpeg?x-expires=1668009600&x-signature=p8qAAyME%2FRu1blVUvtZWhl1IaL8%3D"
-            alt=""
-            className={cx('avatar')}
-          />
+        <Link className={cx('account-item')} to={`/@${data.nickname}`}>
+          <Avatar src={data.avatar} alt={full_name} className={cx('avatar')} />
           <div className={cx('info')}>
             <p className={cx('username')}>
-              <strong>us_wintay</strong>
-              <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />
+              <strong>{data.nickname}</strong>
+              {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
             </p>
-            <p className={cx('fullname')}>US Wintay</p>
+            <p className={cx('fullname')}>{full_name}</p>
           </div>
-        </div>
+        </Link>
       </Tippy>
     </div>
   );
 }
+
+AccountItem.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default AccountItem;
