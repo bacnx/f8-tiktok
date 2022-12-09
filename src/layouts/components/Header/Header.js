@@ -24,6 +24,8 @@ import {
 import Image from '~/components/Image';
 import Search from '../Search';
 import configs from '~/configs';
+import { useModal } from '~/hooks';
+import Login from '~/components/Login';
 
 const cx = classNames.bind(styles);
 
@@ -59,7 +61,8 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-  const currentUser = true;
+  const currentUser = false;
+  const { isShowing, toggle } = useModal();
 
   const userMenu = [
     {
@@ -129,9 +132,12 @@ function Header() {
               </Tippy>
             </>
           ) : (
-            <Button type="fill" color="primary">
-              Log in
-            </Button>
+            <>
+              <Button type="fill" color="primary" onClick={toggle}>
+                Log in
+              </Button>
+              <Login isShowing={isShowing} hide={toggle} />
+            </>
           )}
 
           <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
