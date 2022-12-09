@@ -19,7 +19,7 @@ function AccountItem({ data }) {
     </PopperBox>
   );
 
-  const full_name = data.first_name + data.last_name;
+  const full_name = data.first_name + ' ' + data.last_name;
 
   return (
     // Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context.

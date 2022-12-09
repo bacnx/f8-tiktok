@@ -10,7 +10,7 @@ import Avatar from '~/components/Avatar';
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
-  const full_name = data.first_name + data.last_name;
+  const full_name = data.first_name + ' ' + data.last_name;
 
   return (
     <div className={cx('wrapper')}>
