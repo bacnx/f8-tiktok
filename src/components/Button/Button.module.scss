@@ -14,7 +14,7 @@
   border: 1px solid transparent;
   cursor: pointer;
 
-  & + & {
+  & + &:not(.block) {
     margin-left: 16px;
   }
 }
@@ -101,4 +101,17 @@
   pointer-events: none;
   user-select: none;
   cursor: not-allowed;
+}
+
+.block {
+  display: block;
+  margin-top: 16px;
+}
+
+.space {
+  display: flex;
+
+  .content {
+    flex: 1;
+  }
 }

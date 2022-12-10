@@ -13,6 +13,8 @@ function Button({
   size, // medium(default), small, large
   circle,
   disable,
+  block,
+  space,
   className,
   beforeIcon,
   afterIcon,
@@ -34,6 +36,8 @@ function Button({
     [size]: size,
     circle,
     disable,
+    block,
+    space,
   });
 
   if (href) Comp = 'a';
@@ -62,8 +66,10 @@ Button.propTypes = {
   type: PropTypes.string,
   color: PropTypes.string,
   size: PropTypes.string,
-  circle: PropTypes.string,
-  disable: PropTypes.string,
+  circle: PropTypes.bool,
+  disable: PropTypes.bool,
+  block: PropTypes.bool,
+  space: PropTypes.bool,
   className: PropTypes.string,
   beforeIcon: PropTypes.node,
   afterIcon: PropTypes.node,
