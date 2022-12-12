@@ -36,6 +36,7 @@ function Button({
     [size]: size,
     circle,
     disable,
+    [disable]: disable === true || typeof disable === 'string',
     block,
     space,
   });
@@ -67,7 +68,7 @@ Button.propTypes = {
   color: PropTypes.string,
   size: PropTypes.string,
   circle: PropTypes.bool,
-  disable: PropTypes.bool,
+  disable: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   block: PropTypes.bool,
   space: PropTypes.bool,
   className: PropTypes.string,

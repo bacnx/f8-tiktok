@@ -10,7 +10,7 @@ import Modal from '~/components/Modal';
 import { UserIcon } from '~/components/Icons';
 import Button from '~/components/Button';
 import { Link } from 'react-router-dom';
-import { SignupForm } from './forms';
+import { SignupForm, LoginForm } from './forms';
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +33,7 @@ const LOGIN_CONTENTS = {
       subContent: {
         title: 'Log in',
         type: 'render',
-        render: <>Log in form</>,
+        render: <LoginForm />,
       },
     },
     {
