@@ -1,15 +1,18 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './forms.module.scss';
 import Button from '~/components/Button';
 import { validateEmail, validatePassword, validateConfirmPassword } from './validators';
+import auth from '~/auth';
 
 const cx = classNames.bind(styles);
 
 function Signup() {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  // const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -17,9 +20,11 @@ function Signup() {
   const [messagePassword, setMessagePassword] = useState('');
   const [messageConfirmPassword, setMessageConfirmPassword] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const isValid = () =>
     !!email &&
-    !!username &&
+    // !!username &&
     !!password &&
     !!confirmPassword &&
     !validateEmail(email) &&
@@ -30,13 +35,7 @@ function Signup() {
     e.preventDefault();
     if (!isValid()) return;
 
-    // handle submit here...
-    console.log({
-      email,
-      username,
-      password,
-      confirmPassword,
-    });
+    auth.handleRegister(email, password, setLoading);
   };
 
   return (
@@ -52,7 +51,7 @@ function Signup() {
       />
       {messageEmail && <p className={cx('message-error')}>{messageEmail}</p>}
 
-      <input
+      {/* <input
         className={cx('input')}
         type="text"
         placeholder="Username"
@@ -60,12 +59,13 @@ function Signup() {
         onChange={(e) => setUsername(e.target.value)}
       />
 
-      <span className={cx('space')}></span>
+      <span className={cx('space')}></span> */}
 
       <input
         className={cx('input', { validate: messagePassword })}
         type="password"
         placeholder="Password"
+        autoComplete="new-password"
         value={password}
         onFocus={() => setMessagePassword('')}
         onBlur={() => {
@@ -89,13 +89,14 @@ function Signup() {
 
       <Button
         className={cx('submit')}
-        disable={!isValid() && cx('disable')}
+        disable={loading || (!isValid() && cx('disable'))}
+        block
         type="fill"
         color="primary"
         size="large"
         onClick={handleSubmit}
       >
-        Submit
+        {!loading ? 'Register' : <FontAwesomeIcon className={cx('loading')} icon={faCircleNotch} />}
       </Button>
     </form>
   );

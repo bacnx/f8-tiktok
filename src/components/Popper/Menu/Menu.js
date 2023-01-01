@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './Menu.module.scss';
 import { Box as PopperBox } from '~/components/Popper';
@@ -15,6 +15,11 @@ const defaultFn = () => {};
 function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
+
+  // useEffect: items change, but history not re-set
+  useEffect(() => {
+    setHistory([{ data: items }]);
+  }, [items]);
 
   const handleReset = () => {
     setHistory((prev) => [prev[0]]);

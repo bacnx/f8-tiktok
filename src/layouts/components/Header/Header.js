@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -26,6 +27,7 @@ import Search from '../Search';
 import configs from '~/configs';
 import { useModal } from '~/hooks';
 import Login from '~/components/Login';
+import auth from '~/auth';
 
 const cx = classNames.bind(styles);
 
@@ -61,14 +63,18 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-  const currentUser = false;
   const { isShowing, toggle } = useModal();
+  const [currentUser, setCurrentUser] = useState(false);
+
+  useEffect(() => {
+    auth.getCurrentUser(setCurrentUser); //?? - something wrong
+  }, []);
 
   const userMenu = [
     {
       icon: <UserIcon width="2rem" height="2rem" />,
       title: 'View profile',
-      to: '/@pttt1001',
+      to: `/@${currentUser?.nickname}`,
     },
     {
       icon: <CoinIcon width="2rem" height="2rem" />,
@@ -88,6 +94,7 @@ function Header() {
     {
       icon: <LogOutIcon width="2rem" height="2rem" />,
       title: 'Log out',
+      type: 'logout',
       separate: true,
     },
   ];
@@ -97,6 +104,9 @@ function Header() {
       case 'language':
         // handle logic...
         console.log(item.code);
+        break;
+      case 'logout':
+        auth.handleLogout();
         break;
       default:
         console.warn("Haven't this type");
@@ -144,8 +154,8 @@ function Header() {
             {currentUser ? (
               <Image
                 className={cx('action-avatar')}
-                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/6ae2b0d5129c22fc8d7799d6951bbf29~c5_100x100.jpeg?x-expires=1668009600&x-signature=p8qAAyME%2FRu1blVUvtZWhl1IaL8%3D"
-                alt="Nguyen Van A"
+                src={currentUser.avatar}
+                alt={`${currentUser.first_name} ${currentUser.last_name}`}
                 fallback={images.defaultAvatar}
               />
             ) : (

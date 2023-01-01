@@ -1,4 +1,4 @@
-import httpRequest from '~/utils/httpRequest';
+import * as httpRequest from '~/utils/httpRequest';
 
 const suggestedUsers = async (page = 1, per_page = 5) => {
   try {

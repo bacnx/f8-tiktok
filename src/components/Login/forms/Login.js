@@ -1,37 +1,44 @@
 import classNames from 'classnames/bind';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './forms.module.scss';
 import Button from '~/components/Button';
+import auth from '~/auth';
+import { validateEmail } from './validators';
 
 const cx = classNames.bind(styles);
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [messageEmail, setMessageEmail] = useState('');
 
-  const isValid = () => !!username && !!password;
+  const [loading, setLoading] = useState(false);
+
+  const isValid = () => !!email && !!password && !validateEmail(email);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!isValid()) return;
 
-    // handle submit here...
-    console.log({
-      username,
-      password,
-    });
+    // handle login
+    auth.handleLogin(email, password, setLoading);
   };
 
   return (
     <form className={cx('wrapper')} onSubmit={handleSubmit}>
       <input
-        className={cx('input')}
+        className={cx('input', { validate: messageEmail })}
         type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Email"
+        value={email}
+        onFocus={() => setMessageEmail('')}
+        onBlur={() => setMessageEmail(validateEmail(email))}
+        onChange={(e) => setEmail(e.target.value)}
       />
+      {messageEmail && <p className={cx('message-error')}>{messageEmail}</p>}
 
       <input
         className={cx('input')}
@@ -43,13 +50,14 @@ function Login() {
 
       <Button
         className={cx('submit')}
-        disable={!isValid() && cx('disable')}
+        disable={loading || (!isValid() && cx('disable'))}
+        block
         type="fill"
         color="primary"
         size="large"
         onClick={handleSubmit}
       >
-        Submit
+        {!loading ? 'Login' : <FontAwesomeIcon className={cx('loading')} icon={faCircleNotch} />}
       </Button>
     </form>
   );

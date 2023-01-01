@@ -10,13 +10,10 @@
   height: 36px;
   padding-left: 18px;
   padding-right: 18px;
+  margin-left: 16px;
   border-radius: 4px;
   border: 1px solid transparent;
   cursor: pointer;
-
-  & + &:not(.block) {
-    margin-left: 16px;
-  }
 }
 
 .icon + .content,
@@ -106,6 +103,7 @@
 .block {
   display: block;
   margin-top: 16px;
+  margin-left: 0;
 }
 
 .space {

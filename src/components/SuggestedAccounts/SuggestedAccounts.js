@@ -16,7 +16,7 @@ function SuggestedAccounts({ label, moreBtnLabel = 'See all', type = 'suggested'
   useEffect(() => {
     if (type === 'suggested') {
       suggestedUsersService().then((res) => {
-        setUsers(res.data);
+        setUsers(res);
       });
     }
   }, [type]);
@@ -25,8 +25,8 @@ function SuggestedAccounts({ label, moreBtnLabel = 'See all', type = 'suggested'
     if (moreUsers.length === 0) {
       // get more suggested users in first time
       suggestedUsersService(2).then((res) => {
-        setMoreUsers(res.data);
-        setUsers((preUsers) => [...preUsers, ...res.data]);
+        setMoreUsers(res);
+        setUsers((preUsers) => [...preUsers, ...res]);
         setIsLess(false);
       });
     } else {
