@@ -1,24 +1,8 @@
-import { currentUserService } from '~/services';
-
-function getCurrentUser(setCurrentUser) {
+function getCurrentUser() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-  if (!setCurrentUser) return currentUser;
-
-  if (currentUser) {
-    setCurrentUser(currentUser);
-  } else {
-    const token = document.cookie
-      ?.split(';')
-      .find((item) => item.trim().startsWith('token'))
-      ?.split('=')[1];
-
-    if (token) {
-      currentUserService(token).then((res) => {
-        setCurrentUser(res);
-      });
-    }
-  }
+  // currentUser always at localStorage because setLoading before render App(App.js: 15)
+  return currentUser;
 }
 
 export default getCurrentUser;

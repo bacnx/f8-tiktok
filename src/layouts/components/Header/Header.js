@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -64,11 +63,8 @@ const MENU_ITEMS = [
 
 function Header() {
   const { isShowing, toggle } = useModal();
-  const [currentUser, setCurrentUser] = useState(false);
 
-  useEffect(() => {
-    auth.getCurrentUser(setCurrentUser); //?? - something wrong
-  }, []);
+  const currentUser = auth.getCurrentUser() || false;
 
   const userMenu = [
     {

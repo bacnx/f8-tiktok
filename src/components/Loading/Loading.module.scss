@@ -1,0 +1,40 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  animation: spin 1s infinite;
+}
+
+.item {
+  display: inline-block;
+  margin: 2px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.first {
+  background-color: var(--primary);
+}
+
+.second {
+  background-color: var(--secondary);
+}
+
+@keyframes spin {
+  50% {
+    transform: rotate(380deg);
+  }
+
+  75% {
+    transform: rotate(340deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

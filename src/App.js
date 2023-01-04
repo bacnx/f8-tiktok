@@ -1,12 +1,20 @@
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { publicRoutes } from '~/routes';
 import DefaultLayout from './layouts';
+import Loading from '~/components/Loading';
 import auth from './auth';
 
 function App() {
-  auth.setCurrentUser();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    auth.setCurrentUser(setLoading);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <BrowserRouter>

@@ -8,6 +8,14 @@
   height: calc(100vh - var(--default-layout-header-height));
   overflow-y: overlay;
   padding: 20px var(--padding-x) 26px var(--padding-x);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &:hover::-webkit-scrollbar {
+    display: initial;
+  }
 }
 
 .menu {
