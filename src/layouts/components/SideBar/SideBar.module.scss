@@ -22,6 +22,21 @@
   padding-bottom: 8px;
 }
 
+.login {
+  margin: 20px var(--padding-x);
+}
+
+.login-desc {
+  color: var(--text-color-opacity-2);
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  margin-bottom: 20px;
+}
+
+.login-button {
+  width: 100%;
+}
+
 .line {
   display: block;
   width: calc(100% - 2 * var(--padding-x));
