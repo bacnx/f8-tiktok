@@ -6,7 +6,7 @@ import styles from './Avatar.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Avatar({ src, alt, className, ...props }) {
+function Avatar({ src = images.defaultAvatar, alt, className, ...props }) {
   const classes = cx('avatar', { [className]: className });
 
   return <Image className={classes} src={src} alt={alt} fallback={images.defaultAvatar} {...props} />;
