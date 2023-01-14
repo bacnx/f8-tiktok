@@ -1,11 +1,11 @@
-import Video from '~/components/Video';
+import VideoPost from '~/components/VideoPost';
 
 function Home() {
   return (
     <div style={{ maxWidth: '692px', marginLeft: 'auto' }}>
-      <Video />
-      <Video />
-      <Video />
+      <VideoPost />
+      <VideoPost />
+      <VideoPost />
     </div>
   );
 }

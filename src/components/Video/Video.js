@@ -1,59 +1,120 @@
+import { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faCommentDots, faHeart, faMusic, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Video.module.scss';
-import Avatar from '~/components/Avatar';
-import Button from '~/components/Button';
+import { Volume, VolumeMute } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
 function Video() {
+  const videoRef = useRef();
+  const [playing, setPlaying] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [mute, setMute] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const formatTime = (time) => Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
+
+  const togglePlay = () => {
+    if (playing) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+    setPlaying(!playing);
+  };
+
+  const handlePlay = () => {
+    setPlaying(true);
+  };
+
+  const handlePause = () => {
+    setPlaying(false);
+  };
+
+  const handleTimeUpdate = () => {
+    setCurrentTime(videoRef.current.currentTime);
+  };
+
+  const handleChangeCurrentTime = (event) => {
+    setCurrentTime(event.target.value);
+    videoRef.current.currentTime = event.target.value;
+  };
+
+  const handleChangeVolume = (event) => {
+    setVolume(event.target.value);
+    videoRef.current.volume = event.target.value;
+  };
+
+  const toggleMute = () => {
+    videoRef.current.muted = !videoRef.current.muted;
+    setMute(!mute);
+  };
+
   return (
     <div className={cx('wrapper')}>
-      <Avatar className={cx('avatar')} />
-      <div className={cx('body')}>
-        <div className={cx('info')}>
-          <div className={cx('name')}>
-            <span className={cx('username')}>hoaahanasii</span>
-            <FontAwesomeIcon className={cx('check')} icon={faCircleCheck} />
-            <span className={cx('fullname')}>Đào Lê Phương Hoa</span>
+      <video
+        className={cx('video')}
+        ref={videoRef}
+        preload="metadata"
+        poster="https://files.fullstack.edu.vn/f8-tiktok/videos/840-63723a61b9375.jpg"
+        onPlay={handlePlay}
+        onPause={handlePause}
+        onTimeUpdate={handleTimeUpdate}
+      >
+        <source src="https://files.fullstack.edu.vn/f8-tiktok/videos/840-63723a60f27a2.mp4" type="video/mp4" />
+      </video>
+
+      <div className={cx('controls')}>
+        <div className={cx('top-controls')}>
+          <div className={cx('playback')}>
+            {playing ? (
+              <FontAwesomeIcon icon={faPause} onClick={togglePlay} />
+            ) : (
+              <FontAwesomeIcon icon={faPlay} onClick={togglePlay} />
+            )}
           </div>
 
-          <Button className={cx('follow-btn')} type="border" size="small" color="primary">
-            Follow
-          </Button>
-
-          <p className={cx('desc')}>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-          <Link to="#" className={cx('music')}>
-            <FontAwesomeIcon className={cx('music-icon')} icon={faMusic} />
-            Lorem ipsum dolor sit amet.
-          </Link>
+          <div className={cx('volume')}>
+            <div className={cx('volume-icon')} onClick={toggleMute}>
+              {mute || !volume ? <VolumeMute /> : <Volume />}
+            </div>
+            <input
+              className={cx('volume-bar')}
+              type="range"
+              value={volume}
+              min="0"
+              max="1"
+              step="0.01"
+              onChange={handleChangeVolume}
+            />
+          </div>
         </div>
-        <div className={cx('video-wrapper')}>
-          <div className={cx('video')}></div>
 
-          <div>
-            <div className={cx('action-btn')}>
-              <div className={cx('action-circle')}>
-                <FontAwesomeIcon className={cx('action-icon')} icon={faHeart} />
-              </div>
-              <span className={cx('action-count')}>121.3K</span>
-            </div>
-            <div className={cx('action-btn')}>
-              <div className={cx('action-circle')}>
-                <FontAwesomeIcon className={cx('action-icon')} icon={faCommentDots} />
-              </div>
-              <span className={cx('action-count')}>411</span>
-            </div>
-            <div className={cx('action-btn')}>
-              <div className={cx('action-circle')}>
-                <FontAwesomeIcon className={cx('action-icon')} icon={faShare} />
-              </div>
-              <span className={cx('action-count')}>140</span>
-            </div>
+        <div className={cx('progress')}>
+          <div className={cx('progress-left')}>
+            <progress
+              className={cx('progress-bar')}
+              value={currentTime}
+              min="0"
+              max={videoRef.current?.duration}
+              step="0.1"
+            ></progress>
+            <input
+              className={cx('seek')}
+              type="range"
+              value={currentTime}
+              min="0"
+              max={videoRef.current?.duration}
+              step="0.1"
+              onChange={handleChangeCurrentTime}
+            />
           </div>
+          <span className={cx('seek-tooltip')}>
+            {formatTime(currentTime)}/{formatTime(videoRef.current?.duration || 0)}
+          </span>
         </div>
       </div>
     </div>

@@ -44,11 +44,11 @@ function SuggestedAccounts({ label, moreBtnLabel = 'See all', type = 'suggested'
     <div className={cx('wrapper')}>
       <p className={cx('label')}>{label}</p>
 
-      {users.map((user) => (
+      {users?.map((user) => (
         <AccountItem key={user.id} data={user} />
       ))}
 
-      {users.length ? (
+      {users?.length ? (
         <p className={cx('more-btn')} onClick={isLess ? handleMore : handleLess}>
           {isLess ? moreBtnLabel : 'See less'}
         </p>
