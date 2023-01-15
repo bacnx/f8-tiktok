@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,49 +11,51 @@ import Video from '~/components/Video';
 
 const cx = classNames.bind(styles);
 
-function VideoPost() {
+function VideoPost({ data }) {
+  const fullName = data.user.first_name + ' ' + data.user.last_name;
+
   return (
     <div className={cx('wrapper')}>
-      <Avatar className={cx('avatar')} />
+      <Avatar className={cx('avatar')} src={data.user.avatar} />
       <div className={cx('body')}>
         <div className={cx('info')}>
           <div className={cx('name')}>
-            <span className={cx('username')}>hoaahanasii</span>
-            <FontAwesomeIcon className={cx('check')} icon={faCircleCheck} />
-            <span className={cx('fullname')}>Đào Lê Phương Hoa</span>
+            <span className={cx('username')}>{data.user.nickname}</span>
+            {data.user.tick && <FontAwesomeIcon className={cx('check')} icon={faCircleCheck} />}
+            <span className={cx('fullname')}>{fullName}</span>
           </div>
 
           <Button className={cx('follow-btn')} type="border" size="small" color="primary">
             Follow
           </Button>
 
-          <p className={cx('desc')}>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+          <p className={cx('desc')}>{data.description}</p>
           <Link to="#" className={cx('music')}>
             <FontAwesomeIcon className={cx('music-icon')} icon={faMusic} />
-            Lorem ipsum dolor sit amet.
+            {data.music}
           </Link>
         </div>
         <div className={cx('video-wrapper')}>
-          <Video />
+          <Video data={data} />
 
           <div>
             <div className={cx('action-btn')}>
               <div className={cx('action-circle')}>
                 <FontAwesomeIcon className={cx('action-icon')} icon={faHeart} />
               </div>
-              <span className={cx('action-count')}>121.3K</span>
+              <span className={cx('action-count')}>{data.likes_count}</span>
             </div>
             <div className={cx('action-btn')}>
               <div className={cx('action-circle')}>
                 <FontAwesomeIcon className={cx('action-icon')} icon={faCommentDots} />
               </div>
-              <span className={cx('action-count')}>411</span>
+              <span className={cx('action-count')}>{data.comments_count}</span>
             </div>
             <div className={cx('action-btn')}>
               <div className={cx('action-circle')}>
                 <FontAwesomeIcon className={cx('action-icon')} icon={faShare} />
               </div>
-              <span className={cx('action-count')}>140</span>
+              <span className={cx('action-count')}>{data.shares_count}</span>
             </div>
           </div>
         </div>
@@ -60,5 +63,9 @@ function VideoPost() {
     </div>
   );
 }
+
+VideoPost.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default VideoPost;

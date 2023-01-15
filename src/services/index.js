@@ -4,3 +4,4 @@ export { default as loginService } from './login';
 export { default as logoutService } from './logout';
 export { default as registerService } from './register';
 export { default as currentUserService } from './currentUser';
+export { default as videosListService } from './videosList';

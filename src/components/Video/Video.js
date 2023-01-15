@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +9,7 @@ import { Volume, VolumeMute } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
-function Video() {
+function Video({ data }) {
   const videoRef = useRef();
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -59,12 +60,12 @@ function Video() {
         className={cx('video')}
         ref={videoRef}
         preload="metadata"
-        poster="https://files.fullstack.edu.vn/f8-tiktok/videos/840-63723a61b9375.jpg"
+        poster={data.thumb_url}
         onPlay={handlePlay}
         onPause={handlePause}
         onTimeUpdate={handleTimeUpdate}
       >
-        <source src="https://files.fullstack.edu.vn/f8-tiktok/videos/840-63723a60f27a2.mp4" type="video/mp4" />
+        <source src={data.file_url} type={`video/${data.meta.file_format}`} />
       </video>
 
       <div className={cx('controls')}>
@@ -120,5 +121,9 @@ function Video() {
     </div>
   );
 }
+
+Video.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default Video;
