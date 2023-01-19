@@ -19,12 +19,12 @@ import auth from '~/auth';
 
 const cx = classNames.bind(styles);
 
-function SideBar() {
+function SideBar({ small }) {
   const { isShowing, toggle } = useModal();
   const currentUser = auth.getCurrentUser();
 
   return (
-    <aside className={cx('wrapper')}>
+    <aside className={cx('wrapper', { small })}>
       <Menu className={cx('menu')}>
         <MenuItem title="For You" to={configs.routes.home} icon={<HomeIcon />} activeIcon={<HomeActiveIcon />} />
         <MenuItem

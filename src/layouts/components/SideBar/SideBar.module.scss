@@ -1,5 +1,6 @@
 :root {
   --sidebar-width: 348px;
+  --sidebar-small-width: 240px;
   --padding-x: 8px;
 }
 
@@ -8,6 +9,7 @@
   height: calc(100vh - var(--default-layout-header-height));
   overflow-y: overlay;
   padding: 20px var(--padding-x) 26px var(--padding-x);
+  position: fixed;
 
   &::-webkit-scrollbar {
     display: none;
@@ -15,6 +17,10 @@
 
   &:hover::-webkit-scrollbar {
     display: initial;
+  }
+
+  &.small {
+    width: var(--sidebar-small-width);
   }
 }
 
