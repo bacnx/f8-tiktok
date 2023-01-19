@@ -37,7 +37,7 @@
 .volume-icon {
   color: var(--white);
   padding: 4px 8px;
-  margin: 0 12px;
+  margin: 0 8px;
   cursor: pointer;
 }
 
@@ -89,6 +89,7 @@
 .progress-bar {
   display: block;
   margin-bottom: -14px;
+  transition: 0.05s;
 }
 
 .progress:hover .seek::-webkit-slider-thumb {

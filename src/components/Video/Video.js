@@ -16,7 +16,7 @@ function Video({ data }) {
   const [mute, setMute] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
 
-  const formatTime = (time) => Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
+  const formatTime = (time) => ('0' + Math.floor(time / 60)).slice(-2) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
 
   const togglePlay = () => {
     if (playing) {
@@ -70,12 +70,8 @@ function Video({ data }) {
 
       <div className={cx('controls')}>
         <div className={cx('top-controls')}>
-          <div className={cx('playback')}>
-            {playing ? (
-              <FontAwesomeIcon icon={faPause} onClick={togglePlay} />
-            ) : (
-              <FontAwesomeIcon icon={faPlay} onClick={togglePlay} />
-            )}
+          <div className={cx('playback')} onClick={togglePlay}>
+            {playing ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
           </div>
 
           <div className={cx('volume')}>
