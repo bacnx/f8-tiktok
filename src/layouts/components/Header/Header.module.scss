@@ -18,6 +18,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &.full {
+    width: 100%;
+  }
 }
 
 .logo {

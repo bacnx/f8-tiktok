@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 function SidebarSmall({ children }) {
   return (
     <div className={cx('wrapper')}>
-      <Header />
+      <Header full />
       <div className={cx('container')}>
         <SideBar small />
         <div className={cx('content')}>{children}</div>

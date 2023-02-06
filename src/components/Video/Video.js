@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +16,7 @@ function Video({ data }) {
   const [volume, setVolume] = useState(1);
   const [mute, setMute] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const navigate = useNavigate();
 
   const formatTime = (time) => ('0' + Math.floor(time / 60)).slice(-2) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
 
@@ -55,8 +56,12 @@ function Video({ data }) {
     setMute(!mute);
   };
 
+  const handleClick = () => {
+    navigate(`/@${data.user.nickname}/${data.uuid}`);
+  };
+
   return (
-    <Link className={cx('wrapper')} to={`/@${data.user.nickname}/${data.uuid}`}>
+    <div className={cx('wrapper')} onClick={handleClick}>
       <video
         className={cx('video')}
         ref={videoRef}
@@ -69,7 +74,7 @@ function Video({ data }) {
         <source src={data.file_url} type={`video/${data.meta.file_format}`} />
       </video>
 
-      <div className={cx('controls')}>
+      <div className={cx('controls')} onClick={(e) => e.stopPropagation()}>
         <div className={cx('top-controls')}>
           <div className={cx('playback')} onClick={togglePlay}>
             {playing ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
@@ -115,7 +120,7 @@ function Video({ data }) {
           </span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

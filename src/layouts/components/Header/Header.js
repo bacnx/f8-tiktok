@@ -61,7 +61,7 @@ const MENU_ITEMS = [
   },
 ];
 
-function Header() {
+function Header({ full }) {
   const { isShowing, toggle } = useModal();
 
   const currentUser = auth.getCurrentUser() || false;
@@ -111,7 +111,7 @@ function Header() {
 
   return (
     <header className={cx('wrapper')}>
-      <div className={cx('inner')}>
+      <div className={cx('inner', { full })}>
         <Link className={cx('logo')} to={configs.routes.home}>
           <img src={images.logo} alt="Tiktok" />
         </Link>
