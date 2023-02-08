@@ -1,11 +1,9 @@
 import { authServices } from '~/services';
+import getToken from './getToken';
 
 // save current user from token(cookie) to localStorage
 function setCurrentUser(setLoading) {
-  const token = document.cookie
-    ?.split(';')
-    .find((item) => item.trim().startsWith('token'))
-    ?.split('=')[1];
+  const token = getToken();
 
   if (token) {
     setLoading(true);

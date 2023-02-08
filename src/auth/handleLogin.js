@@ -5,11 +5,19 @@ const handleLogin = async (email, password, setLoading) => {
   // password: '123456',
 
   if (setLoading) setLoading(true);
-  const { token } = await authServices.login(email, password);
+  const res = await authServices.login(email, password);
 
+  if (!res) {
+    if (setLoading) setLoading(false);
+    return false;
+  }
+
+  const token = res.token;
   if (setLoading) setLoading(false);
   document.cookie = 'token=' + token; // set token to cookie
   document.location.reload(); // reload page
+
+  return true; // Logged in successfully
 };
 
 export default handleLogin;

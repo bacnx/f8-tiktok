@@ -18,6 +18,10 @@ function SuggestedAccounts({ label, moreBtnLabel = 'See all', type = 'suggested'
       userServices.suggested().then((res) => {
         setUsers(res);
       });
+    } else if (type === 'following') {
+      userServices.following().then((res) => {
+        setUsers(res);
+      });
     }
   }, [type]);
 
@@ -49,9 +53,11 @@ function SuggestedAccounts({ label, moreBtnLabel = 'See all', type = 'suggested'
       ))}
 
       {users?.length ? (
-        <p className={cx('more-btn')} onClick={isLess ? handleMore : handleLess}>
-          {isLess ? moreBtnLabel : 'See less'}
-        </p>
+        type === 'suggested' && (
+          <p className={cx('more-btn')} onClick={isLess ? handleMore : handleLess}>
+            {isLess ? moreBtnLabel : 'See less'}
+          </p>
+        )
       ) : (
         <p className={cx('no-account')}>Accounts you follow will appear here</p>
       )}

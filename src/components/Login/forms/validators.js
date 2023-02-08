@@ -9,7 +9,7 @@ export const validateEmail = (email) => {
 };
 
 export const validatePassword = (password) => {
-  return 8 <= password.length && password.length <= 20 ? '' : '8 to 20 characters';
+  return 6 <= password.length && password.length <= 20 ? '' : '6 to 20 characters';
 };
 
 export const validateConfirmPassword = (password, confirmPassword) => {

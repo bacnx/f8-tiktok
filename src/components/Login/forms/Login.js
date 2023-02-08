@@ -15,6 +15,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [messageEmail, setMessageEmail] = useState('');
 
+  const [messageLogin, setMessageLogin] = useState('');
   const [loading, setLoading] = useState(false);
 
   const isValid = () => !!email && !!password && !validateEmail(email);
@@ -24,7 +25,9 @@ function Login() {
     if (!isValid()) return;
 
     // handle login
-    auth.handleLogin(email, password, setLoading);
+    auth.handleLogin(email, password, setLoading).then((res) => {
+      if (!res) setMessageLogin('Wrong email or password');
+    });
   };
 
   return (
@@ -59,6 +62,7 @@ function Login() {
       >
         {!loading ? 'Login' : <FontAwesomeIcon className={cx('loading')} icon={faCircleNotch} />}
       </Button>
+      {messageLogin && <p className={cx('message-error', 'message-login')}>{messageLogin}</p>}
     </form>
   );
 }
