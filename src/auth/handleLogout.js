@@ -1,4 +1,4 @@
-import { logoutService } from '~/services';
+// import { authServices } from '~/services';
 
 // buggg: don't request logout <---
 function handleLogout() {
@@ -7,7 +7,7 @@ function handleLogout() {
   //   .find((item) => item.trim().startsWith('token'))
   //   ?.split('=')[1];
 
-  // logoutService(token);
+  // authServices.logout(token);
   document.cookie = 'token='; // delete token from cookie
   document.location.reload(); // reload page
 }

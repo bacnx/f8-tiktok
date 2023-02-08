@@ -1,6 +1,6 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-const videosList = async (type = 'for-you', page = 1) => {
+export const getVideosList = async (type = 'for-you', page = 1) => {
   try {
     const res = await httpRequest.get('videos', {
       params: {
@@ -13,5 +13,3 @@ const videosList = async (type = 'for-you', page = 1) => {
     console.log(error);
   }
 };
-
-export default videosList;

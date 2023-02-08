@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 import styles from './SuggestedAccounts.module.scss';
 import AccountItem from './AccountItem';
-import { suggestedUsersService } from '~/services';
+import { userServices } from '~/services';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +15,7 @@ function SuggestedAccounts({ label, moreBtnLabel = 'See all', type = 'suggested'
 
   useEffect(() => {
     if (type === 'suggested') {
-      suggestedUsersService().then((res) => {
+      userServices.suggested().then((res) => {
         setUsers(res);
       });
     }
@@ -24,7 +24,7 @@ function SuggestedAccounts({ label, moreBtnLabel = 'See all', type = 'suggested'
   const handleMore = () => {
     if (moreUsers.length === 0) {
       // get more suggested users in first time
-      suggestedUsersService(2).then((res) => {
+      userServices.suggested(2).then((res) => {
         setMoreUsers(res);
         setUsers((preUsers) => [...preUsers, ...res]);
         setIsLess(false);

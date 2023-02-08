@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import VideoPost from '~/components/VideoPost';
-import { videosListService } from '~/services';
+import { videoServices } from '~/services';
 
 function Home() {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    videosListService().then((res) => {
+    videoServices.getVideosList().then((res) => {
       setVideos(res);
     });
   }, []);

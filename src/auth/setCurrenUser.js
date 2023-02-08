@@ -1,4 +1,4 @@
-import { currentUserService } from '~/services';
+import { authServices } from '~/services';
 
 // save current user from token(cookie) to localStorage
 function setCurrentUser(setLoading) {
@@ -9,7 +9,7 @@ function setCurrentUser(setLoading) {
 
   if (token) {
     setLoading(true);
-    currentUserService(token).then((res) => {
+    authServices.currentUser(token).then((res) => {
       localStorage.setItem('currentUser', JSON.stringify(res));
 
       // setTimeout(() => {

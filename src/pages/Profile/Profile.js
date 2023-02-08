@@ -9,7 +9,7 @@ import Loading from '~/components/Loading';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import Video from './Video';
-import { userService } from '~/services';
+import { userServices } from '~/services';
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { UserIcon } from '~/components/Icons';
 
@@ -22,7 +22,7 @@ function Profile() {
   const params = useParams();
 
   useEffect(() => {
-    userService(params.nickname).then((data) => {
+    userServices.getUser(params.nickname).then((data) => {
       setUser(data);
     });
   }, [params.nickname]);
@@ -69,8 +69,8 @@ function Profile() {
           </div>
         </div>
         <div className={cx('bio')}>
-          {user.bio.split('\n').map((p) => (
-            <p>{p}</p>
+          {user.bio.split('\n').map((p, index) => (
+            <p key={index}>{p}</p>
           ))}
         </div>
 
