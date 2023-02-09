@@ -8,7 +8,7 @@ function setCurrentUser(setLoading) {
   if (token) {
     setLoading(true);
     authServices.currentUser(token).then((res) => {
-      localStorage.setItem('currentUser', JSON.stringify(res));
+      localStorage.setItem('currentUser', JSON.stringify(res) || '');
 
       // setTimeout(() => {
       setLoading(false);

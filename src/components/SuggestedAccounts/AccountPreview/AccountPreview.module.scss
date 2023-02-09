@@ -18,6 +18,11 @@
   padding-left: 30px;
   padding-right: 30px;
   height: 34px;
+  width: 100px;
+
+  &.button-following {
+    border-color: var(--line-color);
+  }
 }
 
 .body {

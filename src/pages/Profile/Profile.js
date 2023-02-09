@@ -19,17 +19,29 @@ function Profile() {
   const [user, setUser] = useState();
   const [isTabVideos, setIsTabVideos] = useState(true);
   const [playing, setPlaying] = useState(null);
+  const [isFollowed, setIsFollowed] = useState(false);
   const params = useParams();
 
   useEffect(() => {
     userServices.getUser(params.nickname).then((data) => {
       setUser(data);
+      setIsFollowed(data.is_followed);
     });
   }, [params.nickname]);
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const isCurrentUser = currentUser?.nickname === params.nickname;
   const fullname = `${user?.first_name} ${user?.last_name}`.trim();
+
+  const handleFollow = () => {
+    userServices.followUser(user.id);
+    setIsFollowed(true);
+  };
+
+  const handleUnfollow = () => {
+    userServices.unfollowUser(user.id);
+    setIsFollowed(false);
+  };
 
   return user?.nickname !== params.nickname ? (
     <Loading />
@@ -44,10 +56,16 @@ function Profile() {
               {user.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
             </h2>
             <p className={cx('fullname')}>{fullname || user.nickname}</p>
-            {!isCurrentUser ? (
-              <Button className={cx('btn', 'follow-btn')} type="fill" color="primary">
-                Follow
-              </Button>
+            {!isCurrentUser ? ( // if not me
+              !isFollowed ? (
+                <Button className={cx('btn', 'follow-btn')} type="fill" color="primary" onClick={handleFollow}>
+                  Follow
+                </Button>
+              ) : (
+                <Button className={cx('btn', 'unfollow-btn')} type="border" onClick={handleUnfollow}>
+                  Unfollow
+                </Button>
+              )
             ) : (
               <Button className={cx('btn', 'edit-btn')} type="border">
                 <FontAwesomeIcon icon={faEdit} />

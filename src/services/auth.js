@@ -34,14 +34,17 @@ export const login = async (email, password) => {
   }
 };
 
-// bugggg: don't post logout request <--------
 export const logout = async (token) => {
   try {
-    await httpRequest.post('auth/logout', {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    await httpRequest.post(
+      'auth/logout',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
   } catch (err) {
     console.log(err);
   }

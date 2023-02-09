@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCommentDots, faHeart, faMusic, faShare } from '@fortawesome/free-solid-svg-icons';
 
+import { userServices } from '~/services';
 import styles from './VideoPost.module.scss';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
@@ -12,8 +14,19 @@ import Video from '~/components/Video';
 const cx = classNames.bind(styles);
 
 function VideoPost({ data }) {
+  const [isFollowed, setIsFollowed] = useState(data.is_followed);
   const fullName = data.user.first_name + ' ' + data.user.last_name;
   const profileLink = `/@${data.user.nickname}`;
+
+  const handleFollow = () => {
+    userServices.followUser(data.id);
+    setIsFollowed(true);
+  };
+
+  const handleUnfollow = () => {
+    userServices.unfollowUser(data.id);
+    setIsFollowed(false);
+  };
 
   return (
     <div className={cx('wrapper')}>
@@ -28,9 +41,15 @@ function VideoPost({ data }) {
             <span className={cx('fullname')}>{fullName}</span>
           </Link>
 
-          <Button className={cx('follow-btn')} type="border" size="small" color="primary">
-            Follow
-          </Button>
+          {isFollowed ? (
+            <Button className={cx('follow-btn', 'following-btn')} type="border" size="small" onClick={handleUnfollow}>
+              Following
+            </Button>
+          ) : (
+            <Button className={cx('follow-btn')} type="border" size="small" color="primary" onClick={handleFollow}>
+              Follow
+            </Button>
+          )}
 
           <p className={cx('desc')}>{data.description}</p>
           <Link to="#" className={cx('music')}>

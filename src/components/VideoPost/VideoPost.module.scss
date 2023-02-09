@@ -55,6 +55,11 @@
   position: absolute;
   right: 0;
   top: 28px;
+  max-width: 90px;
+
+  &.following-btn {
+    border-color: var(--line-color);
+  }
 }
 
 .desc {

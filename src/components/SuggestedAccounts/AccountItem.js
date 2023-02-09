@@ -12,12 +12,15 @@ import Avatar from '~/components/Avatar';
 
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
-  const renderPreview = (attrs) => (
-    <PopperBox tabIndex="-1" {...attrs}>
-      <AccountPreview data={data} />
-    </PopperBox>
-  );
+function AccountItem({ preview, data }) {
+  const renderPreview = (attrs) =>
+    preview ? (
+      <PopperBox tabIndex="-1" {...attrs}>
+        <AccountPreview data={data} />
+      </PopperBox>
+    ) : (
+      <></>
+    );
 
   const full_name = data.first_name + ' ' + data.last_name;
 

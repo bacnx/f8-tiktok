@@ -49,7 +49,7 @@ function SuggestedAccounts({ label, moreBtnLabel = 'See all', type = 'suggested'
       <p className={cx('label')}>{label}</p>
 
       {users?.map((user) => (
-        <AccountItem key={user.id} data={user} />
+        <AccountItem key={user.id} preview={type === 'suggested'} data={user} />
       ))}
 
       {users?.length ? (

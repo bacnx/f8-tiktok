@@ -61,6 +61,11 @@
     font-size: 1.8rem;
   }
 
+  &.unfollow-btn {
+    width: 180px;
+    border-color: var(--line-color);
+  }
+
   &.edit-btn {
     width: 140px;
     border-color: var(--line-color-opacity);
