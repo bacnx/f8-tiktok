@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCommentDots, faHeart, faMusic, faShare } from '@fortawesome/free-solid-svg-icons';
 
-import { userServices } from '~/services';
+import { userServices, videoServices } from '~/services';
 import styles from './VideoPost.module.scss';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
@@ -15,6 +15,8 @@ const cx = classNames.bind(styles);
 
 function VideoPost({ data }) {
   const [isFollowed, setIsFollowed] = useState(data.user.is_followed);
+  const [isLiked, setIsLiked] = useState(data.is_liked);
+  const [likesCount, setLikesCount] = useState(data.likes_count);
   const fullName = data.user.first_name + ' ' + data.user.last_name;
   const profileLink = `/@${data.user.nickname}`;
 
@@ -26,6 +28,18 @@ function VideoPost({ data }) {
   const handleUnfollow = () => {
     userServices.unfollowUser(data.id);
     setIsFollowed(false);
+  };
+
+  const handleLike = () => {
+    videoServices.like(data.id);
+    setIsLiked(true);
+    setLikesCount(likesCount + 1);
+  };
+
+  const handleUnlike = () => {
+    videoServices.unlike(data.id);
+    setIsLiked(false);
+    setLikesCount(likesCount - 1);
   };
 
   return (
@@ -61,11 +75,14 @@ function VideoPost({ data }) {
           <Video data={data} />
 
           <div>
-            <div className={cx('action-btn')}>
+            <div
+              className={cx('action-btn', { liked: isLiked })}
+              onClick={() => (isLiked ? handleUnlike() : handleLike())}
+            >
               <div className={cx('action-circle')}>
                 <FontAwesomeIcon className={cx('action-icon')} icon={faHeart} />
               </div>
-              <span className={cx('action-count')}>{data.likes_count}</span>
+              <span className={cx('action-count')}>{likesCount}</span>
             </div>
             <div className={cx('action-btn')}>
               <div className={cx('action-circle')}>

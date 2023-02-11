@@ -66,6 +66,7 @@ function Video({ data }) {
         className={cx('video')}
         ref={videoRef}
         preload="metadata"
+        loop
         poster={data.thumb_url}
         onPlay={handlePlay}
         onPause={handlePause}

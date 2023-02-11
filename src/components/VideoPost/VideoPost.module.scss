@@ -96,6 +96,12 @@
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+
+  &.liked {
+    .action-icon {
+      color: var(--primary);
+    }
+  }
 }
 
 .action-circle {
