@@ -89,3 +89,22 @@ export const unfollowUser = async (userId) => {
     console.log(err);
   }
 };
+
+export const getLikedVideos = async (userId) => {
+  try {
+    const token = getToken();
+    const res = await httpRequest.get(
+      `users/${userId}/liked-videos`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

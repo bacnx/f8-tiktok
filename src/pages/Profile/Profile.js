@@ -20,6 +20,7 @@ function Profile() {
   const [isTabVideos, setIsTabVideos] = useState(true);
   const [playing, setPlaying] = useState(null);
   const [isFollowed, setIsFollowed] = useState(false);
+  const [likedVideos, setLikedVideos] = useState([]);
   const params = useParams();
 
   useEffect(() => {
@@ -28,6 +29,14 @@ function Profile() {
       setIsFollowed(data.is_followed);
     });
   }, [params.nickname]);
+
+  useEffect(() => {
+    if (user?.id) {
+      userServices.getLikedVideos(user.id).then((data) => {
+        setLikedVideos(data);
+      });
+    }
+  }, [user?.id]);
 
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const isCurrentUser = currentUser?.nickname === params.nickname;
@@ -159,6 +168,17 @@ function Profile() {
               <p className={cx('not-desc')}>This user has not published any videos.</p>
             </div>
           )
+        ) : likedVideos?.length ? (
+          <div className={cx('videos-container')}>
+            {likedVideos?.map((video) => (
+              <Video
+                key={video.id}
+                play={playing === video.id}
+                data={video}
+                onMouseEnter={() => setPlaying(video.id)}
+              />
+            ))}
+          </div>
         ) : (
           // pro className =))
           <div className={cx('not-videos')}>
