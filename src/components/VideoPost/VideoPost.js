@@ -14,7 +14,7 @@ import Video from '~/components/Video';
 const cx = classNames.bind(styles);
 
 function VideoPost({ data }) {
-  const [isFollowed, setIsFollowed] = useState(data.is_followed);
+  const [isFollowed, setIsFollowed] = useState(data.user.is_followed);
   const fullName = data.user.first_name + ' ' + data.user.last_name;
   const profileLink = `/@${data.user.nickname}`;
 
