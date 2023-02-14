@@ -18,7 +18,7 @@ function Video({ data, play = false, onMouseEnter }) {
   }
 
   return (
-    <Link className={cx('wrapper')} to={`/@${data.user.nickname}/${data.uuid}`} onMouseEnter={onMouseEnter}>
+    <Link className={cx('wrapper')} to={`/@${data.user.nickname}/video/${data.uuid}`} onMouseEnter={onMouseEnter}>
       <div className={cx('video-container')}>
         <div className={cx('video')}>
           <video className={cx('player')} ref={videoRef} poster={data.thumb_url} muted loop>

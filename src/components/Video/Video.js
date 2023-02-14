@@ -57,7 +57,7 @@ function Video({ data }) {
   };
 
   const handleClick = () => {
-    navigate(`/@${data.user.nickname}/${data.uuid}`);
+    navigate(`/@${data.user.nickname}/video/${data.uuid}`);
   };
 
   return (

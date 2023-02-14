@@ -1,0 +1,302 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.left {
+  flex: 1 0 600px;
+  max-width: 100%;
+  height: 100%;
+  background-color: #999;
+  position: relative;
+}
+
+.back-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+
+  svg {
+    font-size: 2.4rem;
+    color: var(--white);
+  }
+}
+
+// =================== Left - end =======================
+
+.right {
+  --padding-x: 32px;
+
+  flex: 0 0 544px;
+  width: 544px;
+  height: 100%;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  padding: 22px var(--padding-x) 0;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.name {
+  flex: 1;
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.avatar:hover + .name .nickname,
+.name:hover .nickname {
+  text-decoration: underline;
+}
+
+.nickname {
+  font-family: var(--sofia-pro-font);
+  font-size: 1.8rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.fullname {
+  font-size: 1.4rem;
+  line-height: 1.4;
+  color: var(--text-color-opacity);
+}
+
+.follow-btn {
+  width: 106px;
+}
+
+.content {
+  margin: 0 var(--padding-x);
+}
+
+.desc {
+  color: var(--text-color-opacity);
+}
+
+.music {
+  display: block;
+  font-weight: 600;
+  margin: 10px 0 16px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  .music-icon {
+    margin-right: 8px;
+  }
+}
+
+// ============= Actions ==============
+
+.actions {
+  margin: 20px var(--padding-x) 0;
+}
+
+.icon-btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-action {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+
+  &.like {
+    cursor: pointer;
+  }
+
+  & + & {
+    margin-left: 16px;
+  }
+
+  .icon-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+    background-color: var(--line-color-opacity);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .action-icon {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    display: inline-block;
+    position: relative;
+
+    &.liked {
+      color: var(--primary);
+    }
+  }
+
+  .action-count {
+    font-size: 1.2rem;
+    color: var(--text-color-opacity);
+    margin-left: 6px;
+  }
+}
+
+.share-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  & > * {
+    cursor: pointer;
+  }
+
+  .telegram,
+  .facebook {
+    font-size: 2.4rem;
+  }
+  .code,
+  .twitter,
+  .more {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .code {
+    background-color: #333;
+    color: #fff;
+
+    svg {
+      font-size: 1.2rem;
+    }
+  }
+
+  .telegram {
+    color: #fe2c55;
+  }
+
+  .facebook {
+    color: #0075fa;
+  }
+
+  .twitter {
+    font-size: 1.4rem;
+    color: #fff;
+    background-color: #1da1f2;
+  }
+
+  .more:hover {
+    background-color: var(--line-color-opacity);
+  }
+}
+
+// ============= Actions-end ==============
+
+.copy-action {
+  width: 100%;
+  height: 34px;
+  border: 1px solid var(--line-color-opacity);
+  border-radius: 8px;
+  background-color: var(--background-color);
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.copy-text {
+  font-size: 1.4rem;
+  color: var(--text-color-opacity);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 4px 0 16px;
+
+  flex: 1;
+}
+
+.copy-button {
+  font-size: 1.4rem;
+  font-weight: 700;
+  width: 95px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(#fff, 0.5);
+  }
+}
+
+.comments {
+  flex: 1;
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: var(--line-color-opacity);
+}
+
+.post-comment {
+  padding: 20px 0;
+  margin: 0 var(--padding-x);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-input {
+  padding: 12px 8px;
+  font-size: 1.4rem;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  caret-color: var(--primary);
+  background-color: var(--background-color);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  word-wrap: break-word;
+  flex: 1;
+  margin-right: 8px;
+
+  &:focus {
+    border-color: var(--line-color);
+  }
+}
+
+.comment-button {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--primary);
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.comment-input:placeholder-shown + .comment-button {
+  color: var(--text-color-opacity-2);
+  cursor: default;
+}
