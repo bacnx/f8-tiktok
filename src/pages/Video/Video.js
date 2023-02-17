@@ -1,12 +1,21 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faComment, faHeart, faMusic, faShare, faXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheckCircle,
+  faCode,
+  faComment,
+  faHeart,
+  faMusic,
+  faShare,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTelegram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './Video.module.scss';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
+import Comment from './Comment';
 
 const cx = classNames.bind(styles);
 
@@ -36,7 +45,10 @@ function Video() {
             alt="f8official"
           />
           <div className={cx('name')}>
-            <strong className={cx('nickname')}>f8official</strong>
+            <strong className={cx('nickname')}>
+              f8official
+              <FontAwesomeIcon icon={faCheckCircle} />
+            </strong>
             <p className={cx('fullname')}>F8 - Học Lập Trình Để Đi Làm · 2022-2-9</p>
           </div>
           <Button className={cx('follow-btn')} type="border" color="primary">
@@ -91,7 +103,15 @@ function Video() {
           </div>
         </div>
 
-        <div className={cx('comments')}></div>
+        <div className={cx('comments')}>
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+        </div>
+
         <div className={cx('post-comment')}>
           <input className={cx('comment-input')} text="text-area" placeholder="Add comment..." />
           <span className={cx('comment-button')}>Post</span>

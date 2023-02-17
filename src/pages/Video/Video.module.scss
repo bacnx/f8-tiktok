@@ -73,6 +73,13 @@
   font-size: 1.8rem;
   line-height: 1.4;
   font-weight: 600;
+
+  svg {
+    font-size: 1.4rem;
+    color: var(--secondary);
+    margin-left: 6px;
+    margin-bottom: 2px;
+  }
 }
 
 .fullname {
@@ -260,6 +267,9 @@
   border-width: 1px 0;
   border-style: solid;
   border-color: var(--line-color-opacity);
+  background-color: var(--background-color-opacity);
+  padding: 16px var(--padding-x);
+  overflow-y: overlay;
 }
 
 .post-comment {

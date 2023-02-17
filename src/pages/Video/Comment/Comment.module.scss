@@ -1,0 +1,112 @@
+.wrapper {
+  display: flex;
+  align-items: start;
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+
+  // select strong tag (contain name)
+  &:hover + .body .name strong {
+    text-decoration: underline;
+  }
+}
+
+.body {
+  flex: 1;
+}
+
+.name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover strong {
+    text-decoration: underline;
+  }
+
+  svg {
+    font-size: 1.4rem;
+    color: var(--secondary);
+    margin-left: 6px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    color: var(--primary);
+    margin-left: 12px;
+    position: relative;
+
+    &::before {
+      content: '';
+      width: 3px;
+      height: 3px;
+      border-radius: 100px;
+      background-color: var(--text-color);
+      position: absolute;
+      left: -7px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.content {
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.informations {
+  font-size: 1.4rem;
+  color: var(--text-color-opacity);
+  margin-top: 4px;
+
+  & > * + * {
+    margin-left: 16px;
+  }
+
+  .reply-btn {
+    user-select: none;
+    cursor: pointer;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.more {
+  font-size: 2rem;
+  padding: 12px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.wrapper:hover .more {
+  opacity: 1;
+}
+
+.like {
+  color: var(--text-color-opacity-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  .liked {
+    color: var(--primary);
+  }
+
+  .count {
+    font-size: 1.2rem;
+    user-select: none;
+    margin-top: 4px;
+  }
+}
