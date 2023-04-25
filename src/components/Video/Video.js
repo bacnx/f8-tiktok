@@ -7,6 +7,7 @@ import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Video.module.scss';
 import { Volume, VolumeMute } from '~/components/Icons';
+import Progress from '~/components/Progress';
 
 const cx = classNames.bind(styles);
 
@@ -85,38 +86,28 @@ function Video({ data }) {
             <div className={cx('volume-icon')} onClick={toggleMute}>
               {mute || !volume ? <VolumeMute /> : <Volume />}
             </div>
-            <input
-              className={cx('volume-bar')}
-              type="range"
-              value={volume}
+            <Progress
+              className={cx('progress-volume')}
               min="0"
               max="1"
               step="0.01"
+              value={volume}
+              border
+              thumb
               onChange={handleChangeVolume}
             />
           </div>
         </div>
 
         <div className={cx('progress')}>
-          <div className={cx('progress-left')}>
-            <progress
-              className={cx('progress-bar')}
-              value={currentTime}
-              min="0"
-              max={videoRef.current?.duration}
-              step="0.1"
-            ></progress>
-            <input
-              className={cx('seek')}
-              type="range"
-              value={currentTime}
-              min="0"
-              max={videoRef.current?.duration}
-              step="0.1"
-              onChange={handleChangeCurrentTime}
-            />
-          </div>
-          <span className={cx('seek-tooltip')}>
+          <Progress
+            min={0}
+            max={videoRef.current?.duration}
+            step={0.1}
+            value={currentTime}
+            onChange={handleChangeCurrentTime}
+          />
+          <span className={cx('progress-time')}>
             {formatTime(currentTime)}/{formatTime(videoRef.current?.duration || 0)}
           </span>
         </div>

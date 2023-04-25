@@ -4,11 +4,30 @@ import styles from './Progress.module.scss';
 
 const cx = classnames.bind(styles);
 
-function Progress({ min = 0, max = 100, step = 1, value, onChange }) {
+function Progress(
+  {
+    min = 0,
+    max = 100,
+    step = 1,
+    value,
+    scale,
+    thumb,
+    border,
+    className,
+    onChange
+  }
+) {
+  const classes = cx('wrapper', {
+    [className]: className,
+    scale,
+    thumb,
+    border,
+  });
+
   const progress = max ? (value / max) * 100 : 0;
 
   return (
-    <div className={cx('wrapper')} style={{ '--progress': `${Math.floor(progress)}%` }}>
+    <div className={classes} style={{ '--progress': `${Math.floor(progress)}%` }}>
       <input
         className={cx('input')}
         type="range"
@@ -31,6 +50,10 @@ Progress.propTypes = {
   max: PropTypes.number,
   step: PropTypes.number,
   value: PropTypes.number.isRequired,
+  className: PropTypes.string,
+  scale: PropTypes.bool,
+  thumb: PropTypes.bool,
+  border: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
 };
 

@@ -3,7 +3,25 @@
   flex: 1;
 }
 
-.wrapper:hover {
+// .wrapper.border
+.border::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background-color: var(--background-color);
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.border:hover::after {
+  opacity: 0.5;
+}
+
+.wrapper.scale:hover {
   .track,
   .progress {
     height: 8px;
@@ -12,7 +30,6 @@
   .input::-webkit-slider-thumb {
     width: 16px;
     height: 16px;
-    // display (default is none)
   }
 }
 
@@ -27,6 +44,11 @@
   transform: translate(-50%, -50%);
   transition: width ease-in-out 0.1s, height ease-in-out 0.1s;
   cursor: pointer;
+}
+
+.wrapper .input::-webkit-slider-thumb {
+  width: 8px;
+  height: 8px;
 }
 
 // style like .track

@@ -23,4 +23,4 @@
 - [ ] unable get token from cookies
 - [ ] login to like/follow (open login modal)
 - [ ] login to comment (open login modal)
-- [ ] shadow around player controls (player in Home Page)
+- [X] shadow around player controls (player in Home Page)

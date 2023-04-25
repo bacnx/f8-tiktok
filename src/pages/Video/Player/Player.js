@@ -26,6 +26,7 @@ function Player({ data }) {
   const [muted, setMuted] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState(1);
 
 
   useEffect(() => {
@@ -76,6 +77,11 @@ function Player({ data }) {
     setCurrentTime(videoRef.current.currentTime);
   };
 
+  const handleVolumeChange = (event) => {
+    videoRef.current.volume = event.target.value;
+    setVolume(videoRef.current.volume);
+  };
+
 
   return (
 
@@ -100,6 +106,7 @@ function Player({ data }) {
             max={duration}
             step={0.1}
             value={currentTime}
+            scale
             onChange={handleTimeChange}
           />
           <div className={cx('progress-time')}>{`${formatTime(currentTime)}/${formatTime(duration)}`}</div>
@@ -117,9 +124,20 @@ function Player({ data }) {
         Report
       </span>
 
-      <span className={cx('btn', 'volume-btn')} onClick={handleToggleMute}>
-        {muted ? <VolumeMute /> : <Volume />}
-      </span>
+      <div className={cx('volume')} onClick={handleStopPropagation}>
+        <span className={cx('btn', 'volume-btn')} onClick={handleToggleMute}>
+          {muted ? <VolumeMute /> : <Volume />}
+        </span>
+        <Progress
+          className={cx('volume-progress')}
+          min={0}
+          max={1}
+          step={0.01}
+          value={volume}
+          border
+          onChange={handleVolumeChange}
+        />
+      </div>
     </div>
 
 

@@ -1,5 +1,4 @@
 .wrapper {
-  background-color: #eee; // <--- test
   width: 278px;
   height: calc(450px + (100vw - 768px) / 1152 * 100);
   border-radius: 8px;
@@ -21,8 +20,10 @@
 
 .controls {
   opacity: 0;
-  margin: 8px;
+  padding: 8px;
+  background: linear-gradient(to top, #0007, transparent);
   position: absolute;
+  z-index: 1;
   left: 0;
   right: 0;
   bottom: 0;
@@ -46,33 +47,28 @@
   position: relative;
 }
 
-.volume:hover .volume-bar {
+.volume:hover .progress-volume {
   display: block;
 }
 
-.volume-bar {
+// selector lever up to override ::after
+.volume .progress-volume {
   display: none;
   position: absolute;
-  top: -40px;
+  top: -55px;
   left: 0;
   transform: rotate(-90deg);
   padding: 8px;
-}
 
-.volume-bar::-webkit-slider-runnable-track {
-  background-color: var(--white);
-  height: 2px;
-  border-radius: 10px;
-}
-
-.volume-bar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 100px;
-  background-color: var(--white);
-  transform: translateY(-50%);
-  cursor: pointer;
+  &::after {
+    background-color: #0005;
+    padding: 0 8px;
+    height: 50%;
+    z-index: -2;
+  }
+  &:hover::after {
+    opacity: 1;
+  }
 }
 
 .progress {
@@ -81,39 +77,7 @@
   padding-bottom: 12px;
 }
 
-.progress-left {
-  flex: 1;
-  position: relative;
-}
-
-.seek,
-.progress-bar {
-  display: block;
-  margin-bottom: -14px;
-  transition: 0.05s;
-}
-
-.progress:hover .seek::-webkit-slider-thumb {
-  display: block;
-}
-
-.progress:hover .progress-bar {
-  height: 4px;
-  transform: translateY(-1px);
-}
-
-.seek::-webkit-slider-thumb {
-  display: none;
-  -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 100px;
-  background-color: var(--white);
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.seek-tooltip {
+.progress-time {
   font-size: 1rem;
   color: var(--white);
   margin-left: 4px;
