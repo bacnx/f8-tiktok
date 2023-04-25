@@ -20,6 +20,21 @@ export const getVideosList = async (type = 'for-you', page = 1) => {
   }
 };
 
+export const getVideo = async (uuid) => {
+  try {
+    const token = getToken();
+    const res = await httpRequest.get(`videos/${uuid}`, {
+      headers: {
+        'Content-Type': 'Application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const like = async (videoId) => {
   try {
     const token = getToken();

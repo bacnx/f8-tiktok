@@ -1,4 +1,5 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -8,7 +9,6 @@ import {
   faHeart,
   faMusic,
   faShare,
-  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faTelegram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import classNames from 'classnames/bind';
@@ -16,25 +16,29 @@ import styles from './Video.module.scss';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import Comment from './Comment';
+import Player from './Player';
+import { videoServices } from '~/services';
 
 const cx = classNames.bind(styles);
 
 function Video() {
+  const [data, setData] = useState({});
   const params = useParams();
-  const navigate = useNavigate();
 
-  console.log(params);
+  useEffect(() => {
+    videoServices.getVideo(params.uuid).then((response) => {
+      setData(response);
+    });
+  }, [params.uuid]);
 
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   return (
+
+
+
     <div className={cx('wrapper')}>
       <div className={cx('left')}>
-        <span className={cx('back-button')} onClick={handleBack}>
-          <FontAwesomeIcon icon={faXmark} />
-        </span>
+        <Player data={data} />
       </div>
 
       <div className={cx('right')}>
@@ -118,6 +122,9 @@ function Video() {
         </div>
       </div>
     </div>
+
+
+
   );
 }
 

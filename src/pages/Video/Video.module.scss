@@ -12,25 +12,6 @@
   position: relative;
 }
 
-.back-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 100px;
-  background-color: var(--background-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  top: 20px;
-  left: 20px;
-  cursor: pointer;
-
-  svg {
-    font-size: 2.4rem;
-    color: var(--white);
-  }
-}
-
 // =================== Left - end =======================
 
 .right {

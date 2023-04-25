@@ -17,7 +17,10 @@
 - [ ] Loading effect for components
 - [ ] rename SidebarSmall to FullContent
 - [ ] hide time line video at home page when duration <= 30s
-- [ ] call login form when click to follow button without auth
 - [ ] hide Following accounts if without auth
 - [ ] auto play when scroll to
 - [ ] clone share icon at Profile page
+- [ ] unable get token from cookies
+- [ ] login to like/follow (open login modal)
+- [ ] login to comment (open login modal)
+- [ ] shadow around player controls (player in Home Page)
