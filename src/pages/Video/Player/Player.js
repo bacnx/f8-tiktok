@@ -88,6 +88,8 @@ function Player({ data }) {
 
 
     <div className={cx('container')} onClick={handleTogglePlay}>
+      <div className={cx('thumb')} style={{ '--background': `url('${data.thumb_url}')` }}></div>
+
       <div className={cx('video-wrapper')}>
         <video
           className={cx('video-player')}

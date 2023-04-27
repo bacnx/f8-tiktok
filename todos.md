@@ -3,7 +3,7 @@
 ## Tasks
 - [X] Following page
 - [X] Like action
-- [ ] Video page
+- [X] Video page
 - [ ] Comment: create / edit / delete / like
 - [ ] Update profile
 - [ ] Upload video
@@ -24,5 +24,3 @@
 - [ ] login to like/follow (open login modal)
 - [ ] login to comment (open login modal)
 - [X] shadow around player controls (player in Home Page)
-- [ ] background image (Video page)
-- [ ] delete comment
