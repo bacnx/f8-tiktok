@@ -35,3 +35,48 @@ export const createCommentPost = async (postUuid, content) => {
   }
 };
 
+export const _delete = async (commentId) => {
+  try {
+    const token = getToken();
+    const res = await httpRequest._delete(`comments/${commentId}`, {
+      headers: {
+        'Content-Type': 'Application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const like = async (commentId) => {
+  try {
+    const token = getToken();
+    const res = await httpRequest.post(`comments/${commentId}/like`, {}, {
+      headers: {
+        'Content-Type': 'Application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const unlike = async (commentId) => {
+  try {
+    const token = getToken();
+    const res = await httpRequest.post(`comments/${commentId}/unlike`, {}, {
+      headers: {
+        'Content-Type': 'Application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+

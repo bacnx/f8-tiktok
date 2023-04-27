@@ -10,9 +10,9 @@ import Header from './Header';
 
 const cx = classNames.bind(styles);
 
-const defaultFn = () => {};
+const defaultFn = () => { };
 
-function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
+function Menu({ children, items = [], delay, hideOnClick = false, onChange = defaultFn }) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
 
@@ -62,7 +62,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
   return (
     <Tippy
       interactive
-      delay={[0, 500]}
+      delay={delay && [0, 500]}
       offset={[16, 4]}
       hideOnClick={hideOnClick}
       placement="bottom-end"
@@ -77,6 +77,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
 Menu.propTypes = {
   children: PropTypes.node.isRequired,
   items: PropTypes.array.isRequired,
+  delay: PropTypes.bool,
   hideOnClick: PropTypes.bool,
   onChange: PropTypes.func,
 };

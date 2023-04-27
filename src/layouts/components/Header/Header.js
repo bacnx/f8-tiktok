@@ -146,7 +146,7 @@ function Header({ full }) {
             </>
           )}
 
-          <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+          <Menu items={currentUser ? userMenu : MENU_ITEMS} delay onChange={handleMenuChange}>
             {currentUser ? (
               <Image
                 className={cx('action-avatar')}

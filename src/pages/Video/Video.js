@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,6 +27,7 @@ const cx = classNames.bind(styles);
 
 function Video() {
   const params = useParams();
+  const commentInputRef = useRef(null);
   const { isShowing, toggle } = useModal();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
@@ -43,7 +44,7 @@ function Video() {
   const profileLink = `/@${data.user?.nickname}`;
 
 
-  const reloadCommentList = (videoId) => {
+  const reloadCommentList = (videoId = data.id) => {
     commentServices.getCommentListOfAPost(videoId).then((response) => {
       setComments(response);
     });
@@ -115,6 +116,17 @@ function Video() {
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
+  };
+
+  const handleReplyComment = (username) => {
+    setCommentText(`@${username} `);
+    commentInputRef.current.focus();
+  };
+
+  const handleDeleteComment = (commentId) => {
+    commentServices._delete(commentId).then(() => {
+      reloadCommentList();
+    });
   };
 
 
@@ -206,7 +218,13 @@ function Video() {
           {comments?.length ? (
             comments.map((comment) => {
               const isCreater = data.user?.id === comment.user?.id;
-              return <Comment key={comment.id} data={comment} isCreater={isCreater} />;
+              return <Comment
+                key={comment.id}
+                data={comment}
+                isCreater={isCreater}
+                onReply={handleReplyComment}
+                onDelete={handleDeleteComment}
+              />;
             })
           ) : (
             <p className={cx('no-comment')}>No comments</p>
@@ -216,6 +234,7 @@ function Video() {
         <div className={cx('post-comment')}>
           <input
             className={cx('comment-input')}
+            ref={commentInputRef}
             text="text-area"
             placeholder="Add comment..."
             value={commentText}
