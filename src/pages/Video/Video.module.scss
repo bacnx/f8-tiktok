@@ -253,6 +253,11 @@
   overflow-y: overlay;
 }
 
+.no-comment {
+  color: var(--text-color-opacity);
+  text-align: center;
+}
+
 .post-comment {
   padding: 20px 0;
   margin: 0 var(--padding-x);

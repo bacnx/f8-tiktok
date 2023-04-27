@@ -15,22 +15,111 @@ import classNames from 'classnames/bind';
 import styles from './Video.module.scss';
 import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
+import Login from '~/components/Login';
+import Loading from '~/components/Loading';
 import Comment from './Comment';
 import Player from './Player';
-import { videoServices } from '~/services';
+import { userServices, videoServices, commentServices } from '~/services';
+import auth from '~/auth';
+import { useModal } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
 function Video() {
-  const [data, setData] = useState({});
   const params = useParams();
+  const { isShowing, toggle } = useModal();
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
+  const [comments, setComments] = useState([]); // list of comments
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+  const [commentText, setCommentText] = useState(''); // comment text in input
+
+  const isLoged = !!auth.getCurrentUser();
+  const fullname = `${data.user?.first_name} ${data.user?.last_name}`.trim() || data.user?.nickname;
+  const createdAtDate = data?.created_at?.split(' ')?.shift();
+
+
+  const reloadCommentList = (videoId) => {
+    commentServices.getCommentListOfAPost(videoId).then((response) => {
+      setComments(response);
+    });
+  };
 
   useEffect(() => {
+    setLoading(true);
     videoServices.getVideo(params.uuid).then((response) => {
       setData(response);
+      setIsFollowing(response.user.is_followed);
+      setIsLiked(response.is_liked);
+      setLikeCount(response.likes_count);
+      setCommentCount(response.comments_count);
+      setLoading(false);
+
+      reloadCommentList(response.id);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.uuid]);
 
+  const handleFollowPostUser = () => {
+    if (!isLoged) {
+      toggle();
+      return;
+    }
+
+    userServices.followUser(data.user?.id);
+    setIsFollowing(true);
+  };
+
+  const handleUnfollowPostUser = () => {
+    userServices.unfollowUser(data.user?.id);
+    setIsFollowing(false);
+  };
+
+  const handleToggleLikePost = () => {
+    if (!isLoged) {
+      toggle();
+      return;
+    }
+
+    if (isLiked) {
+      videoServices.unlike(data.id);
+      setLikeCount(likeCount - 1);
+    } else {
+      videoServices.like(data.id);
+      setLikeCount(likeCount + 1);
+    }
+    setIsLiked(!isLiked);
+  };
+
+  const handleCommentChange = (event) => {
+    setCommentText(event.target.value);
+  };
+
+  const handlePostComment = () => {
+    if (commentText === '') return;
+    if (!isLoged) {
+      toggle();
+      return;
+    }
+
+    commentServices.createCommentPost(data.uuid, commentText).then(() => {
+      setCommentText('');
+      reloadCommentList(data.id);
+      setCommentCount(commentCount + 1);
+    });
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+  };
+
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
 
@@ -45,27 +134,32 @@ function Video() {
         <div className={cx('account')}>
           <Avatar
             className={cx('avatar')}
-            src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/9ad47e71816c884b785dd10891662bf3~c5_100x100.jpeg?x-expires=1676462400&x-signature=PawNl3FAZy4Fc0JFmxTk%2BwM9n6w%3D"
-            alt="f8official"
+            src={data.user?.avatar}
+            alt={data.user?.nickname}
           />
           <div className={cx('name')}>
             <strong className={cx('nickname')}>
-              f8official
-              <FontAwesomeIcon icon={faCheckCircle} />
+              {data.user?.nickname}
+              {data.user?.tick && <FontAwesomeIcon icon={faCheckCircle} />}
             </strong>
-            <p className={cx('fullname')}>F8 - Học Lập Trình Để Đi Làm · 2022-2-9</p>
+            <p className={cx('fullname')}>{fullname} · {createdAtDate}</p>
           </div>
-          <Button className={cx('follow-btn')} type="border" color="primary">
-            Follow
-          </Button>
+          {isFollowing ? (
+            <Button className={cx('follow-btn')} type="border" onClick={handleUnfollowPostUser}>
+              Following
+            </Button>
+          ) : (
+            <Button className={cx('follow-btn')} type="border" color="primary" onClick={handleFollowPostUser}>
+              Follow
+            </Button>
+          )}
         </div>
 
         <div className={cx('content')}>
-          <p className={cx('desc')}>Ai thấu nỗi đau này</p>
+          <p className={cx('desc')}>{data.description}</p>
           <Link to="#" className={cx('music')}>
             <FontAwesomeIcon className={cx('music-icon')} icon={faMusic} />
-            {/* {data.music || data.user.nickname} */}
-            nhạc nền - F8 Official - F8
+            {data.music || data.user?.nickname}
           </Link>
         </div>
 
@@ -73,16 +167,16 @@ function Video() {
           <div className={cx('icon-btns')}>
             <div className={cx('post-actions')}>
               <div className={cx('post-action', 'like')}>
-                <div className={cx('icon-wrapper')}>
-                  <FontAwesomeIcon className={cx('action-icon', 'liked')} icon={faHeart} />
+                <div className={cx('icon-wrapper')} onClick={handleToggleLikePost}>
+                  <FontAwesomeIcon className={cx('action-icon', { liked: isLiked })} icon={faHeart} />
                 </div>
-                <span className={cx('action-count')}>3704</span>
+                <span className={cx('action-count')}>{likeCount}</span>
               </div>
               <div className={cx('post-action')}>
                 <div className={cx('icon-wrapper')}>
                   <FontAwesomeIcon className={cx('action-icon')} icon={faComment} />
                 </div>
-                <span className={cx('action-count')}>55</span>
+                <span className={cx('action-count')}>{commentCount}</span>
               </div>
             </div>
             <div className={cx('share-actions')}>
@@ -101,26 +195,39 @@ function Video() {
           </div>
           <div className={cx('copy-action')}>
             <span className={cx('copy-text')}>
-              https://www.tiktok.com/@f8official/video/7062654710624374017?is_from_webapp=1&sender_device=pc&web_id=7194249284311614977
+              {window.location.href}
             </span>
-            <div className={cx('copy-button')}>Copy link</div>
+            <div className={cx('copy-button')} onClick={handleCopyLink}>Copy link</div>
           </div>
         </div>
 
         <div className={cx('comments')}>
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+          {comments?.length ? (
+            comments.map((comment) => {
+              const isCreater = data.user?.id === comment.user?.id;
+              return <Comment key={comment.id} data={comment} isCreater={isCreater} />;
+            })
+          ) : (
+            <p className={cx('no-comment')}>No comments</p>
+          )}
         </div>
 
         <div className={cx('post-comment')}>
-          <input className={cx('comment-input')} text="text-area" placeholder="Add comment..." />
-          <span className={cx('comment-button')}>Post</span>
+          <input
+            className={cx('comment-input')}
+            text="text-area"
+            placeholder="Add comment..."
+            value={commentText}
+            onChange={handleCommentChange}
+            onKeyDown={(e) => e.key === 'Enter' && handlePostComment()}
+          />
+          <span className={cx('comment-button')} onClick={handlePostComment}>Post</span>
         </div>
       </div>
+
+
+      {/* Modal Login form will appear if not login yet */}
+      <Login isShowing={isShowing} hide={toggle} />
     </div>
 
 

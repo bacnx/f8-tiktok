@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faEllipsis, faHeart as faHeartFill } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
@@ -9,9 +9,15 @@ import styles from './Comment.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Comment() {
+function Comment({ data, isCreater }) {
   const [liked, setLiked] = useState(false);
-  const [likedCount, setLikedCount] = useState(91);
+  const [likedCount, setLikedCount] = useState(null);
+
+  useEffect(() => {
+    setLiked(data.is_liked);
+    setLikedCount(data.likes_count);
+  }, [data]);
+
 
   const handleToggleLike = () => {
     if (liked) {
@@ -23,21 +29,29 @@ function Comment() {
     }
   };
 
+  const user = data.user || ({});
+  const fullname = `${user.first_name} ${user.last_name}`?.trim() || user.nickname;
+  const createdAtDate = data.created_at?.split(' ')?.shift();
+
+
   return (
+
+
+
     <div className={cx('wrapper')}>
-      <Avatar className={cx('avatar')} src="https://www.tiktok.com/@hoaa.hanassii" alt="hoaa.hanassii" />
+      <Avatar className={cx('avatar')} src={user.avatar} alt={user.nickname} />
 
       <div className={cx('body')}>
         <div className={cx('name')}>
-          <strong>Đào Lê Phương Hoa</strong>
-          <FontAwesomeIcon icon={faCheckCircle} />
-          <span className={cx('title')}>Creater</span>
+          <strong>{fullname}</strong>
+          {user.tick && <FontAwesomeIcon icon={faCheckCircle} />}
+          {isCreater && <span className={cx('title')}>Creater</span>}
         </div>
         <p className={cx('content')}>
-          ở đầu mặc màu trắng/ màu tương phản với màu đen thì váy ở đoạn sau nó sẽ nổi bật và chinh hơn đó ạ🥺
+          {data.comment}
         </p>
         <div className={cx('informations')}>
-          <span className={cx('date')}>2-9</span>
+          <span className={cx('date')}>{createdAtDate}</span>
           <span className={cx('reply-btn')}>Reply</span>
         </div>
       </div>
@@ -54,6 +68,9 @@ function Comment() {
         </div>
       </div>
     </div>
+
+
+
   );
 }
 

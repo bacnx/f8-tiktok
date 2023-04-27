@@ -24,3 +24,5 @@
 - [ ] login to like/follow (open login modal)
 - [ ] login to comment (open login modal)
 - [X] shadow around player controls (player in Home Page)
+- [ ] background image (Video page)
+- [ ] delete comment
