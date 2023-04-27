@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faEllipsis, faHeart as faHeartFill } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
@@ -12,6 +13,11 @@ const cx = classNames.bind(styles);
 function Comment({ data, isCreater }) {
   const [liked, setLiked] = useState(false);
   const [likedCount, setLikedCount] = useState(null);
+
+  const user = data.user || ({});
+  const fullname = `${user.first_name} ${user.last_name}`?.trim() || user.nickname;
+  const createdAtDate = data.created_at?.split(' ')?.shift();
+  const profileLink = `/@${data.user.nickname}`;
 
   useEffect(() => {
     setLiked(data.is_liked);
@@ -29,24 +35,24 @@ function Comment({ data, isCreater }) {
     }
   };
 
-  const user = data.user || ({});
-  const fullname = `${user.first_name} ${user.last_name}`?.trim() || user.nickname;
-  const createdAtDate = data.created_at?.split(' ')?.shift();
-
 
   return (
 
 
 
     <div className={cx('wrapper')}>
-      <Avatar className={cx('avatar')} src={user.avatar} alt={user.nickname} />
+      <Link className={cx('avatar-link')} to={profileLink}>
+        <Avatar className={cx('avatar')} src={user.avatar} alt={user.nickname} />
+      </Link>
 
       <div className={cx('body')}>
-        <div className={cx('name')}>
-          <strong>{fullname}</strong>
-          {user.tick && <FontAwesomeIcon icon={faCheckCircle} />}
-          {isCreater && <span className={cx('title')}>Creater</span>}
-        </div>
+        <Link className={cx('name-link')} to={profileLink}>
+          <div className={cx('name')}>
+            <strong>{fullname}</strong>
+            {user.tick && <FontAwesomeIcon icon={faCheckCircle} />}
+            {isCreater && <span className={cx('title')}>Creater</span>}
+          </div>
+        </Link>
         <p className={cx('content')}>
           {data.comment}
         </p>

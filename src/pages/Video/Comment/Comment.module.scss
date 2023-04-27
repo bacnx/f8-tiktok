@@ -10,10 +10,11 @@
   height: 40px;
   cursor: pointer;
 
-  // select strong tag (contain name)
-  &:hover + .body .name strong {
-    text-decoration: underline;
-  }
+}
+
+// select strong tag (contain name)
+.avatar-link:hover + .body .name strong {
+  text-decoration: underline;
 }
 
 .body {

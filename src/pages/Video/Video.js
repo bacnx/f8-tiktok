@@ -40,6 +40,7 @@ function Video() {
   const isLoged = !!auth.getCurrentUser();
   const fullname = `${data.user?.first_name} ${data.user?.last_name}`.trim() || data.user?.nickname;
   const createdAtDate = data?.created_at?.split(' ')?.shift();
+  const profileLink = `/@${data.user?.nickname}`;
 
 
   const reloadCommentList = (videoId) => {
@@ -132,18 +133,18 @@ function Video() {
 
       <div className={cx('right')}>
         <div className={cx('account')}>
-          <Avatar
-            className={cx('avatar')}
-            src={data.user?.avatar}
-            alt={data.user?.nickname}
-          />
-          <div className={cx('name')}>
-            <strong className={cx('nickname')}>
-              {data.user?.nickname}
-              {data.user?.tick && <FontAwesomeIcon icon={faCheckCircle} />}
-            </strong>
-            <p className={cx('fullname')}>{fullname} · {createdAtDate}</p>
-          </div>
+          <Link className={cx('avatar-link')} to={profileLink}>
+            <Avatar className={cx('avatar')} src={data.user?.avatar} alt={data.user?.nickname} />
+          </Link>
+          <Link className={cx('name-link')} to={profileLink}>
+            <div className={cx('name')}>
+              <strong className={cx('nickname')}>
+                {data.user?.nickname}
+                {data.user?.tick && <FontAwesomeIcon icon={faCheckCircle} />}
+              </strong>
+              <p className={cx('fullname')}>{fullname} · {createdAtDate}</p>
+            </div>
+          </Link>
           {isFollowing ? (
             <Button className={cx('follow-btn')} type="border" onClick={handleUnfollowPostUser}>
               Following
