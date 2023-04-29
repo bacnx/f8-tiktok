@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faEllipsis, faHeart as faHeartFill } from '@fortawesome/free-solid-svg-icons';
-import { faHeart, faFlag, faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { faHeart, faFlag, faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import classNames from 'classnames/bind';
 
 import Avatar from '~/components/Avatar';
@@ -26,6 +26,7 @@ function Comment({ data, isCreater, onReply, onDelete }) {
   const createdAtDate = data.created_at?.split(' ')?.shift();
   const profileLink = `/@${data.user.nickname}`;
   const isLoged = !!auth.getToken();
+  const isMe = data.user.id === auth.getCurrentUser()?.id;
 
   let menuItems = [
     {
@@ -35,12 +36,20 @@ function Comment({ data, isCreater, onReply, onDelete }) {
     }
   ];
 
-  if (isLoged) {
-    menuItems = [...menuItems, {
-      type: 'delete',
-      title: 'Delete',
-      icon: <FontAwesomeIcon icon={faTrashCan} />,
-    }];
+  if (isMe) {
+    menuItems = [
+      ...menuItems,
+      {
+        type: 'edit',
+        title: 'Edit',
+        icon: <FontAwesomeIcon icon={faPenToSquare} />,
+      },
+      {
+        type: 'delete',
+        title: 'Delete',
+        icon: <FontAwesomeIcon icon={faTrashCan} />,
+      },
+    ];
   }
 
   useEffect(() => {
@@ -105,9 +114,12 @@ function Comment({ data, isCreater, onReply, onDelete }) {
       </div>
 
       <div className={cx('actions')}>
-        <Menu items={menuItems} onChange={handleMenuChange}>
-          <FontAwesomeIcon className={cx('more')} icon={faEllipsis} />
-        </Menu>
+        {/* Tippy menu: Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context. */}
+        <div>
+          <Menu items={menuItems} onChange={handleMenuChange}>
+            <FontAwesomeIcon className={cx('more')} icon={faEllipsis} />
+          </Menu>
+        </div>
         <div className={cx('like')} onClick={handleToggleLike}>
           {liked ? (
             <FontAwesomeIcon className={cx('icon', 'liked')} icon={faHeartFill} />
