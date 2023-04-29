@@ -15,10 +15,10 @@
 - [ ] Make title for pages
 - [ ] Hover to account at Navbar overflow hidden (SidebarSmall layout)
 - [ ] rename SidebarSmall to FullContent
-- [ ] hide time line video at home page when duration <= 30s
+- [X] hide time line video (Home page) when duration <= 30s
 - [X] hide Following accounts if without auth
 - [ ] auto play when scroll to
-- [ ] clone share icon at Profile page
+- [X] clone share icon at Profile page
 - [ ] unable get token from cookies
 - [X] login to like/follow (open login modal)
 - [X] login to comment (open login modal)

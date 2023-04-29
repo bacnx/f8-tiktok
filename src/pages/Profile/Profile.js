@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faEllipsis, faLink, faLock, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle, faEllipsis, faLink, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-regular-svg-icons';
 
 import styles from './Profile.module.scss';
 import Loading from '~/components/Loading';
@@ -10,8 +11,8 @@ import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import Video from './Video';
 import { userServices } from '~/services';
-import { faEdit } from '@fortawesome/free-regular-svg-icons';
-import { UserIcon } from '~/components/Icons';
+import { UserIcon, ShareIcon } from '~/components/Icons';
+import auth from '~/auth';
 
 const cx = classNames.bind(styles);
 
@@ -38,7 +39,7 @@ function Profile() {
     }
   }, [user?.id]);
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentUser = auth.getCurrentUser();
   const isCurrentUser = currentUser?.nickname === params.nickname;
   const fullname = `${user?.first_name} ${user?.last_name}`.trim();
 
@@ -135,7 +136,7 @@ function Profile() {
           )}
         </>
         <div className={cx('actions')}>
-          <FontAwesomeIcon icon={faShare} />
+          <ShareIcon />
           {!isCurrentUser && <FontAwesomeIcon icon={faEllipsis} />}
         </div>
       </div>

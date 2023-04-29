@@ -12,14 +12,15 @@ import Progress from '~/components/Progress';
 const cx = classNames.bind(styles);
 
 function Video({ data }) {
+  const navigate = useNavigate();
   const videoRef = useRef();
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [mute, setMute] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const navigate = useNavigate();
 
   const formatTime = (time) => ('0' + Math.floor(time / 60)).slice(-2) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
+  const duration = videoRef.current?.duration;
 
   const togglePlay = () => {
     if (playing) {
@@ -62,6 +63,9 @@ function Video({ data }) {
   };
 
   return (
+
+
+
     <div className={cx('wrapper')} onClick={handleClick}>
       <video
         className={cx('video')}
@@ -99,20 +103,23 @@ function Video({ data }) {
           </div>
         </div>
 
-        <div className={cx('progress')}>
+        {duration >= 30 && <div className={cx('progress')}>
           <Progress
             min={0}
-            max={videoRef.current?.duration}
+            max={duration}
             step={0.1}
             value={currentTime}
             onChange={handleChangeCurrentTime}
           />
           <span className={cx('progress-time')}>
-            {formatTime(currentTime)}/{formatTime(videoRef.current?.duration || 0)}
+            {formatTime(currentTime)}/{formatTime(duration || 0)}
           </span>
-        </div>
+        </div>}
       </div>
     </div>
+
+
+
   );
 }
 

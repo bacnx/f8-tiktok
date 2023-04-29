@@ -109,6 +109,7 @@ function Player({ data }) {
             step={0.1}
             value={currentTime}
             scale
+            thumb
             onChange={handleTimeChange}
           />
           <div className={cx('progress-time')}>{`${formatTime(currentTime)}/${formatTime(duration)}`}</div>

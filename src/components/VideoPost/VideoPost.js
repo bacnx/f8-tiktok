@@ -3,7 +3,7 @@ import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck, faCommentDots, faHeart, faMusic, faShare } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faCommentDots, faHeart, faMusic } from '@fortawesome/free-solid-svg-icons';
 
 import { userServices, videoServices } from '~/services';
 import styles from './VideoPost.module.scss';
@@ -11,6 +11,7 @@ import Avatar from '~/components/Avatar';
 import Button from '~/components/Button';
 import Video from '~/components/Video';
 import Login from '~/components/Login';
+import { ShareIcon } from '~/components/Icons';
 import { useModal } from '~/hooks';
 import auth from '~/auth';
 
@@ -125,7 +126,7 @@ function VideoPost({ data }) {
             </div>
             <div className={cx('action-btn')}>
               <div className={cx('action-circle')}>
-                <FontAwesomeIcon className={cx('action-icon')} icon={faShare} />
+                <ShareIcon className={cx('action-icon')} solid />
               </div>
               <span className={cx('action-count')}>{data.shares_count}</span>
             </div>
