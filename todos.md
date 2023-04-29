@@ -21,6 +21,6 @@
 - [ ] auto play when scroll to
 - [ ] clone share icon at Profile page
 - [ ] unable get token from cookies
-- [ ] login to like/follow (open login modal)
-- [ ] login to comment (open login modal)
+- [X] login to like/follow (open login modal)
+- [X] login to comment (open login modal)
 - [X] shadow around player controls (player in Home Page)

@@ -8,14 +8,25 @@ import { userServices } from '~/services';
 import styles from './AccountPreview.module.scss';
 import Button from '~/components/Button';
 import Avatar from '~/components/Avatar';
+import Login from '~/components/Login';
+import { useModal } from '~/hooks';
+import auth from '~/auth';
 
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
   const [isFollowed, setIsFollowed] = useState(data.is_followed);
+  const { isShowing, toggle } = useModal();
+
+  const isLoged = !!auth.getToken();
   const full_name = data.first_name + ' ' + data.last_name;
 
   const handleFollow = () => {
+    if (!isLoged) {
+      toggle();
+      return;
+    }
+
     userServices.followUser(data.id);
     setIsFollowed(true);
   };
@@ -26,6 +37,9 @@ function AccountPreview({ data }) {
   };
 
   return (
+
+
+
     <div className={cx('wrapper')}>
       <div className={cx('header')}>
         <Avatar className={cx('avatar')} src={data.avatar} alt={full_name} />
@@ -53,7 +67,12 @@ function AccountPreview({ data }) {
           <span className={cx('label')}>Like</span>
         </p>
       </div>
+
+      <Login isShowing={isShowing} hide={toggle} />
     </div>
+
+
+
   );
 }
 
