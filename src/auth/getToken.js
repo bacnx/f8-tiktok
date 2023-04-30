@@ -1,9 +1,5 @@
 const getToken = () => {
-  const token = document.cookie
-    ?.split(';')
-    .find((item) => item.trim().startsWith('token'))
-    ?.split('=')[1];
-  return token || undefined;
+  return localStorage.getItem('token');
 };
 
 export default getToken;

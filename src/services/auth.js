@@ -63,7 +63,7 @@ export const currentUser = async (token) => {
     console.log(err);
 
     // delete token and currentUser
-    document.cookie = 'token=';
+    localStorage.removeItem('token');
     localStorage.removeItem('currentUser');
   }
 };

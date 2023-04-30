@@ -19,7 +19,7 @@
 - [X] hide Following accounts if without auth
 - [ ] auto play when scroll to
 - [X] clone share icon at Profile page
-- [ ] unable get token from cookies
+- [X] unable get token from cookies (Fix: using localStorage)
 - [X] login to like/follow (open login modal)
 - [X] login to comment (open login modal)
 - [X] shadow around player controls (player in Home Page)

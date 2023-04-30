@@ -3,9 +3,10 @@ import getToken from './getToken';
 
 function handleLogout() {
   const token = getToken();
-  authServices.logout(token);
-  document.cookie = 'token='; // delete token from cookie
-  document.location.reload(); // reload page
+  authServices.logout(token).then(() => {
+    localStorage.removeItem('token');
+    document.location.reload(); // reload page
+  });
 }
 
 export default handleLogout;

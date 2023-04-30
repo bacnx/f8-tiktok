@@ -34,8 +34,12 @@ export const suggested = async (page = 1, per_page = 5) => {
 };
 
 export const following = async (page = 1) => {
+  const token = getToken();
+  if (!token) {
+    return;
+  }
+
   try {
-    const token = getToken();
     const res = await httpRequest.get('me/followings', {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -52,8 +56,10 @@ export const following = async (page = 1) => {
 };
 
 export const followUser = async (userId) => {
+  const token = getToken();
+  if (!token) return;
+
   try {
-    const token = getToken();
     const res = await httpRequest.post(
       `users/${userId}/follow`,
       {},
@@ -72,8 +78,10 @@ export const followUser = async (userId) => {
 };
 
 export const unfollowUser = async (userId) => {
+  const token = getToken();
+  if (!token) return;
+
   try {
-    const token = getToken();
     const res = await httpRequest.post(
       `users/${userId}/unfollow`,
       {},
@@ -91,8 +99,10 @@ export const unfollowUser = async (userId) => {
 };
 
 export const getLikedVideos = async (userId) => {
+  const token = getToken();
+  if (!token) return;
+
   try {
-    const token = getToken();
     const res = await httpRequest.get(
       `users/${userId}/liked-videos`,
       {},

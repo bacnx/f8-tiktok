@@ -14,7 +14,7 @@ const handleLogin = async (email, password, setLoading) => {
 
   const token = res.token;
   if (setLoading) setLoading(false);
-  document.cookie = 'token=' + token; // set token to cookie
+  localStorage.setItem('token', token);
   document.location.reload(); // reload page
 
   return true; // Logged in successfully
