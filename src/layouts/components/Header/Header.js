@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -62,6 +62,7 @@ const MENU_ITEMS = [
 ];
 
 function Header({ full }) {
+  const location = useLocation();
   const { isShowing, toggle } = useModal();
 
   const currentUser = auth.getCurrentUser() || false;
@@ -119,7 +120,12 @@ function Header({ full }) {
         <Search />
 
         <div className={cx('actions')}>
-          <Button className={cx('upload-button')} type="border" beforeIcon={<FontAwesomeIcon icon={faPlus} />}>
+          <Button
+            className={cx('upload-button', { active: location.pathname === configs.routes.upload })}
+            to={configs.routes.upload}
+            type="border"
+            beforeIcon={<FontAwesomeIcon icon={faPlus} />}
+          >
             Upload
           </Button>
 

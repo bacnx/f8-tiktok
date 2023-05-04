@@ -5,10 +5,10 @@ import Live from '~/pages/Live';
 import Profile from '~/pages/Profile';
 import Search from '~/pages/Search';
 import Video from '~/pages/Video';
+import Upload from '~/pages/Upload';
 
 // Layouts
-import { SidebarSmall } from '~/layouts';
-import EmptyLayout from '~/layouts/EmptyLayout';
+import { SidebarSmall, EmptyLayout, HeaderOnly } from '~/layouts';
 
 import configs from '~/configs';
 
@@ -19,6 +19,7 @@ const publicRoutes = [
   { path: configs.routes.profile, component: Profile, layout: SidebarSmall },
   { path: configs.routes.search, component: Search, layout: null },
   { path: configs.routes.video, component: Video, layout: EmptyLayout },
+  { path: configs.routes.upload, component: Upload, layout: HeaderOnly },
 ];
 
 const privateRoutes = [];
